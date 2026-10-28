@@ -98,7 +98,7 @@ function portraitThumb(id){
 }
 function cardFor(id){
   const e=ENT[id],o=e.o;
-  if(e.k==="person")return `<button class="card btn pcard" data-open="${id}">${portraitThumb(id)}<span class="lab"><span class="dot ${lane(id)}"></span>${o.kind==="place"?"Место":"Человек"} · ${esc(o.years)}</span><h3>${esc(o.name)}</h3>${D.en[o.id]?`<span class="names">${esc(D.en[o.id])}</span>`:""}<span class="small muted">${esc(o.role)}</span></button>`;
+  if(e.k==="person")return `<button class="card btn pcard" data-open="${id}">${portraitThumb(id)}<span class="lab"><span class="dot ${lane(id)}"></span>${o.kind==="place"?"Место":(o.ext?"Только упомянут":"Герой главы")} · ${esc(o.years)}</span><h3>${esc(o.name)}</h3>${D.en[o.id]?`<span class="names">${esc(D.en[o.id])}</span>`:""}<span class="small muted">${esc(o.role)}</span></button>`;
   if(e.k==="work")return `<button class="card btn" data-open="${id}"><span class="lab"><span class="dot ${lane(id)}"></span>ил. ${esc(o.ill)} · ${esc(o.year)}</span>${D.workImg[id]?imgFig(D.workImg[id]).replace(/<figcaption>.*<\/figcaption>/,""):""}<h3>${esc(o.title)}</h3>${D.en[o.id]?`<span class="names">${esc(D.en[o.id])}</span>`:""}<span class="small muted">${esc(o.a?title(o.a):(o.authorText||""))}</span></button>`;
   if(e.k==="term")return `<button class="card btn" data-open="${id}"><span class="lab">Термин</span><h3>${esc(o.name)}</h3><span class="small muted">${esc(o.def)}</span></button>`;
   return `<button class="card btn" data-open="${id}"><span class="lab">Раздел главы</span><h3>${esc(o.t)}</h3><span class="small muted">${esc(o.s)}</span></button>`;
@@ -156,7 +156,7 @@ function blockIllus(id){
 }
 function filterChips(id,opts,sel){return `<div class="chips" id="${id}">${opts.map(([k,l])=>`<button type="button" class="chip${k===sel?" on":""}" data-f="${k}">${l}</button>`).join("")}</div>`;}
 function bindFilter(id,fn){$$("#"+id+" .chip").forEach(b=>b.addEventListener("click",()=>{$$("#"+id+" .chip").forEach(x=>x.classList.toggle("on",x===b));fn(b.dataset.f);}));}
-const LANE_OPTS=[["all","Все"]].concat(Object.keys(LANES).map(k=>[k,D.laneShort[k]]));
+const LANE_OPTS=[["all","Все"]].concat(Object.keys(LANES).map(k=>[k,`<span class="dot l-${k}"></span> ${D.laneShort[k]}`]));
 
 render.map=function(){
   $("#v-map").innerHTML=`<div class="lab">Глава ${D.meta.n} · ${esc(D.meta.sub)}</div><h1>${esc(D.meta.title)}</h1>
@@ -195,7 +195,7 @@ render.time=function(){
 
 render.people=function(){
   const v=$("#v-people");
-  v.innerHTML=`<h2>Люди</h2><p class="muted">Герои главы и те, на кого она ссылается. Значок «вне главы» означает, что человек только упомянут.</p>${filterChips("pf",LANE_OPTS,"all")}<div class="chips"><label class="small"><input type="checkbox" id="ponly"> только герои главы</label></div><div class="grid" id="pg"></div>`;
+  v.innerHTML=`<h2>Люди</h2><p class="muted">Герои главы и те, на кого она ссылается. Подпись «Только упомянут» значит, что человека нет в основном сюжете главы. Цвет точки показывает страну или школу, как на кнопках ниже.</p>${filterChips("pf",LANE_OPTS,"all")}<div class="chips"><label class="small"><input type="checkbox" id="ponly"> только герои главы</label></div><div class="grid" id="pg"></div>`;
   let fl="all";const draw=()=>{const only=$("#ponly").checked;$("#pg").innerHTML=D.people.filter(p=>(fl==="all"||p.lane===fl)&&(!only||!p.ext)).map(p=>cardFor(p.id)).join("");};
   bindFilter("pf",f=>{fl=f;draw();});$("#ponly").addEventListener("change",draw);draw();
 };
