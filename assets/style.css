@@ -130,3 +130,17 @@ a.lk:hover{border-color:var(--accent)} a.lk::after{content:" ↗";color:var(--mu
 .card.pcard .yrs{display:block;margin-top:2px}
 .card.pcard .pst{display:block;margin-top:8px;font-size:9px;letter-spacing:.06em}
 .card.pcard .pst .dot{width:7px;height:7px;margin-right:5px}
+.steplink{all:unset;cursor:pointer;color:inherit;font:inherit;display:inline;text-decoration:none}
+.steplink:hover,.steplink:focus-visible{text-decoration:underline;text-decoration-color:var(--accent)}
+.steplink.more{color:var(--accent);font:600 13px var(--f-ui);white-space:nowrap;margin-left:4px}
+figure.fig img{cursor:pointer}
+#sheet figure.fig img{cursor:zoom-in}
+.card.btn figure.fig img{cursor:inherit}
+#lb{position:fixed;inset:0;z-index:60;background:rgba(10,12,16,.92);display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px;gap:12px;cursor:zoom-out}
+#lb.on{display:flex}
+#lb img{max-width:100%;max-height:78vh;object-fit:contain;border-radius:6px}
+#lb .lbcap{max-width:760px;color:#e8eaee;font:500 13px/1.5 var(--f-ui);text-align:center;cursor:auto}
+#lb .lbcap a{color:#9cc4ec}
+#lb .x{position:absolute;top:14px;right:18px;background:none;border:0;color:#fff;font-size:30px;cursor:pointer}
+.zoombtn{font:600 13px var(--f-ui);color:var(--accent);background:none;border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;margin:0 0 4px}
+.zoombtn:hover{border-color:var(--accent)}

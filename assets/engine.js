@@ -56,12 +56,26 @@ function openSheet(id){
   s.classList.add("on");s.setAttribute("aria-hidden","false");$("#shade").hidden=false;refreshStatus();s.scrollTop=0;$("#sx").focus();
 }
 function closeSheet(){$("#sheet").classList.remove("on");$("#sheet").setAttribute("aria-hidden","true");$("#shade").hidden=true;if(lastFocus&&lastFocus.focus)lastFocus.focus();if(cur==="notes")render.notes();}
+function openLightbox(img){
+  const fig=img.closest("figure"),cap=fig&&fig.querySelector("figcaption");
+  let lb=$("#lb");if(!lb){lb=document.createElement("div");lb.id="lb";lb.setAttribute("role","dialog");lb.setAttribute("aria-label","Увеличенная картинка");document.body.appendChild(lb);}
+  lb.innerHTML=`<button class="x" id="lbx" aria-label="Закрыть">×</button><img alt="${esc(img.alt)}"><div class="lbcap">${cap?cap.innerHTML:""}</div>`;
+  const big=lb.querySelector("img");const back=img.currentSrc||img.src;
+  if(img.dataset.c){big.onerror=()=>{big.onerror=null;big.src=back;};big.src=cUrl(img.dataset.c,1600);}else big.src=back;
+  lb.classList.add("on");$("#lbx").focus();
+}
+function closeLightbox(){const lb=$("#lb");if(lb)lb.classList.remove("on");}
 document.addEventListener("click",e=>{
+  if(e.target.closest("#lb")){if(!e.target.closest("a"))closeLightbox();return;}
+  const zb=e.target.closest("[data-zoom]");if(zb){const im=$("#sheet figure.fig img");if(im)openLightbox(im);return;}
+  const fi=e.target.closest("figure.fig img");
+  if(fi&&!fi.closest("[data-open]")){if(fi.closest("#sheet"))openLightbox(fi);else if(fi.dataset.k)openSheet("img:"+fi.dataset.k);else openLightbox(fi);return;}
   const o=e.target.closest("[data-open]");if(o){openSheet(o.dataset.open);return;}
   const s=e.target.closest("[data-st]");if(s){const id=s.dataset.st;store.st[id]=store.st[id]===s.dataset.s?"":s.dataset.s;if(!store.st[id])delete store.st[id];save();refreshStatus();return;}
   if(e.target.id==="sx"||e.target.id==="shade")closeSheet();
 });
 document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"&&$("#lb")&&$("#lb").classList.contains("on")){closeLightbox();return;}
   if(e.key==="Escape"&&$("#sheet").classList.contains("on"))closeSheet();
   if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches("svg [data-open]")){e.preventDefault();openSheet(e.target.dataset.open);}
 });
@@ -112,7 +126,7 @@ const cUrl=(n,w)=>"https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeU
 const cPage=n=>"https://commons.wikimedia.org/wiki/File:"+encodeURIComponent(cfile(n));
 function imgFig(key,note){
   const m=D.img[key];if(!m)return"";
-  return `<figure class="fig"><img loading="lazy" src="images/ch${D.meta.n}/${esc(m.f)}" data-c="${esc(m.c)}" data-s="0" alt="${esc(m.cap)}"><figcaption>${note?`<b>${esc(m.cap)}.</b> ${esc(note)}<br>`:esc(m.cap)+". "}${esc(m.by)}, ${esc(m.lic)}. <a href="${cPage(m.c)}" target="_blank" rel="noopener">Файл на Commons</a></figcaption></figure>`;
+  return `<figure class="fig"><img loading="lazy" src="images/ch${D.meta.n}/${esc(m.f)}" data-c="${esc(m.c)}" data-k="${esc(key)}" data-s="0" alt="${esc(m.cap)}"><figcaption>${note?`<b>${esc(m.cap)}.</b> ${esc(note)}<br>`:esc(m.cap)+". "}${esc(m.by)}, ${esc(m.lic)}. <a href="${cPage(m.c)}" target="_blank" rel="noopener">Файл на Commons</a></figcaption></figure>`;
 }
 /* картинка не нашлась рядом: берём с Commons, а если и там нет, показываем заглушку */
 document.addEventListener("error",e=>{
@@ -129,7 +143,21 @@ function linkRow(id,extra){
   (D.site[id]||[]).forEach(x=>L.push(x));(extra||[]).forEach(x=>L.push(x));
   return L.length?`<div class="links">${L.map(([t,u])=>`<a class="lk" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join("")}</div>`:"";
 }
+function imageSheetBody(key){
+  const m=D.img[key];if(!m)return"";
+  const txt=(D.imgText&&D.imgText[key])||"";
+  const works=Object.entries(D.workImg).filter(([w,k])=>k===key).map(([w])=>w);
+  const blocks=Object.entries(D.blockImg).filter(([b,L])=>L.some(x=>x[0]===key)).map(([b])=>b);
+  const ppl=[...new Set(works.map(w=>ENT[w]&&ENT[w].o.a).filter(Boolean))];
+  let h=`<div class="lab">Картинка</div><h2>${esc(m.cap)}</h2>${imgFig(key)}<button type="button" class="zoombtn" data-zoom="1">Увеличить</button>`;
+  h+=`<div class="lab" style="margin-top:14px">Что на картинке</div><p>${esc(txt||"Описание пока не написано.")}</p>`;
+  if(works.length)h+=`<div class="lab">Работа из книги</div>${chips(works)}`;
+  if(ppl.length)h+=`<div class="lab">Автор</div>${chips(ppl)}`;
+  if(blocks.length)h+=`<div class="lab">Где встречается в главе</div>${chips(blocks)}`;
+  return h;
+}
 function sheetBody(id){
+  if(id.startsWith("img:"))return imageSheetBody(id.slice(4));
   let h=sheetBodyBase(id);const en=D.en[id],k=D.personImg[id]||D.workImg[id];
   const add=(en?`<span class="names">${esc(en)}</span>`:"")+(k?imgFig(k):"");
   h=h.replace("</h2>","</h2>"+add);
@@ -164,7 +192,7 @@ render.map=function(){
   <div class="note"><b>Как пользоваться.</b> Читай главу в бумажной книге, а здесь проверяй имена и связи. Нажми на любое имя, работу или термин, чтобы открыть карточку, и отмечай, что прочитала, повторила или помнишь слабо.</div>
   <div class="card" style="margin-top:16px"><div class="lab">Мой прогресс по главе</div><div class="prog" id="prog" style="margin:8px 0"></div><div class="small muted" id="progt"></div></div>
   <h2 style="margin-top:28px">Как устроена глава</h2><p class="muted">Разделы идут в том порядке, в каком они встречаются в тексте.</p>
-  <ol class="steps">${D.blocks.map((b,i)=>`<li class="step"><span class="n">${i+1}</span><div><h3>${esc(b.t)}</h3><p class="small" style="margin:4px 0">${esc(b.s)}</p>${chips(b.e.concat(b.w))}${blockIllus(b.id)}${statusHTML(b.id)}</div></li>`).join("")}</ol>
+  <ol class="steps">${D.blocks.map((b,i)=>`<li class="step"><span class="n">${i+1}</span><div><h3><button type="button" class="steplink" data-open="${b.id}">${esc(b.t)}</button></h3><p class="small" style="margin:4px 0">${esc(b.s)} <button type="button" class="steplink more" data-open="${b.id}">Подробнее →</button></p>${chips(b.e.concat(b.w))}${blockIllus(b.id)}${statusHTML(b.id)}</div></li>`).join("")}</ol>
   <h2 style="margin-top:28px">Вопросы, с которыми удобно читать</h2>
   <div class="grid">${D.questions.map(([q,a])=>`<div class="card"><b>${esc(q)}</b><p class="small muted" style="margin:6px 0 0">${esc(a)}</p></div>`).join("")}</div>`;
 };
