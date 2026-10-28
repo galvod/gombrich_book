@@ -122,3 +122,8 @@ a.lk:hover{border-color:var(--accent)} a.lk::after{content:" ↗";color:var(--mu
 .ills figure.fig{margin:0;background:var(--bg);border-radius:8px;padding:6px}
 .ills figure.fig img{max-height:190px}
 .ills figure.fig figcaption b{color:var(--ink)}
+
+.card.pcard{display:grid;grid-template-columns:76px 1fr;column-gap:14px;align-items:start}
+.card.pcard>.pth{grid-row:1/6;width:76px;height:96px;object-fit:cover;object-position:top;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
+.card.pcard>.pth.none{display:grid;place-items:center;text-align:center;font:600 11px/1.2 var(--f-ui);color:var(--muted);padding:4px}
+.card.pcard>*:not(.pth){grid-column:2}

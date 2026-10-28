@@ -91,9 +91,14 @@ $("#q").addEventListener("input",e=>{
   v.innerHTML=`<h2>Поиск</h2><p class="muted">Найдено: ${res.length}</p>`+(res.length?`<div class="grid">${res.map(id=>cardFor(id)).join("")}</div>`:`<p>Ничего не нашлось. Попробуй фамилию, жанр («портрет») или номер иллюстрации.</p>`);
   show("search");
 });
+function portraitThumb(id){
+  const k=D.personImg[id],m=k&&D.img[k];
+  if(m)return `<img class="pth" loading="lazy" src="images/ch${D.meta.n}/${esc(m.f)}" data-c="${esc(m.c)}" data-w="300" data-s="0" alt="${esc(m.cap)}">`;
+  return `<span class="pth none" title="${esc((D.noPortrait&&D.noPortrait[id])||"")}">нет портрета</span>`;
+}
 function cardFor(id){
   const e=ENT[id],o=e.o;
-  if(e.k==="person")return `<button class="card btn" data-open="${id}"><span class="lab"><span class="dot ${lane(id)}"></span>${o.kind==="place"?"Место":"Человек"} · ${esc(o.years)}</span><h3>${esc(o.name)}</h3>${D.en[o.id]?`<span class="names">${esc(D.en[o.id])}</span>`:""}<span class="small muted">${esc(o.role)}</span></button>`;
+  if(e.k==="person")return `<button class="card btn pcard" data-open="${id}">${portraitThumb(id)}<span class="lab"><span class="dot ${lane(id)}"></span>${o.kind==="place"?"Место":"Человек"} · ${esc(o.years)}</span><h3>${esc(o.name)}</h3>${D.en[o.id]?`<span class="names">${esc(D.en[o.id])}</span>`:""}<span class="small muted">${esc(o.role)}</span></button>`;
   if(e.k==="work")return `<button class="card btn" data-open="${id}"><span class="lab"><span class="dot ${lane(id)}"></span>ил. ${esc(o.ill)} · ${esc(o.year)}</span>${D.workImg[id]?imgFig(D.workImg[id]).replace(/<figcaption>.*<\/figcaption>/,""):""}<h3>${esc(o.title)}</h3>${D.en[o.id]?`<span class="names">${esc(D.en[o.id])}</span>`:""}<span class="small muted">${esc(o.a?title(o.a):(o.authorText||""))}</span></button>`;
   if(e.k==="term")return `<button class="card btn" data-open="${id}"><span class="lab">Термин</span><h3>${esc(o.name)}</h3><span class="small muted">${esc(o.def)}</span></button>`;
   return `<button class="card btn" data-open="${id}"><span class="lab">Раздел главы</span><h3>${esc(o.t)}</h3><span class="small muted">${esc(o.s)}</span></button>`;
@@ -107,12 +112,13 @@ const cUrl=(n,w)=>"https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeU
 const cPage=n=>"https://commons.wikimedia.org/wiki/File:"+encodeURIComponent(cfile(n));
 function imgFig(key,note){
   const m=D.img[key];if(!m)return"";
-  return `<figure class="fig"><img loading="lazy" src="images/ch23/${esc(m.f)}" data-c="${esc(m.c)}" data-s="0" alt="${esc(m.cap)}"><figcaption>${note?`<b>${esc(m.cap)}.</b> ${esc(note)}<br>`:esc(m.cap)+". "}${esc(m.by)}, ${esc(m.lic)}. <a href="${cPage(m.c)}" target="_blank" rel="noopener">Файл на Commons</a></figcaption></figure>`;
+  return `<figure class="fig"><img loading="lazy" src="images/ch${D.meta.n}/${esc(m.f)}" data-c="${esc(m.c)}" data-s="0" alt="${esc(m.cap)}"><figcaption>${note?`<b>${esc(m.cap)}.</b> ${esc(note)}<br>`:esc(m.cap)+". "}${esc(m.by)}, ${esc(m.lic)}. <a href="${cPage(m.c)}" target="_blank" rel="noopener">Файл на Commons</a></figcaption></figure>`;
 }
 /* картинка не нашлась рядом: берём с Commons, а если и там нет, показываем заглушку */
 document.addEventListener("error",e=>{
   const t=e.target;if(!t||t.tagName!=="IMG"||!t.dataset.c)return;
-  if(t.dataset.s==="0"){t.dataset.s="1";t.src=cUrl(t.dataset.c,900);}
+  if(t.dataset.s==="0"){t.dataset.s="1";t.src=cUrl(t.dataset.c,+t.dataset.w||900);}
+  else if(t.dataset.s==="1"&&t.classList.contains("pth")){t.dataset.s="2";const d=document.createElement("span");d.className="pth none";d.textContent="нет портрета";t.replaceWith(d);}
   else if(t.dataset.s==="1"){t.dataset.s="2";const d=document.createElement("div");d.className="nofile";d.innerHTML='Картинка не загрузилась. <a href="'+cPage(t.dataset.c)+'" target="_blank" rel="noopener">Открыть на Commons</a>';t.replaceWith(d);}
 },true);
 function linkRow(id,extra){

@@ -348,6 +348,291 @@ D.img={
 };
 D.personImg={};
 D.workImg={w311:"w311",w312:"w312",w313:"w313",w314:"w314",w315:"w315",w316:"w316",w317:"w317",w318:"w318",w320:"w320",w321:"w321",w322:"w322",w323:"w323",w324:"w324",w325:"w325",w326:"w326",wsalon:"wsalon"};
+/* портреты людей: файлы с Wikimedia Commons, проверены через API (лицензия и автор) */
+Object.assign(D.img,{
+ "pt_walpole": {
+  "f": "ch24_portrait_walpole_by-reynolds.jpg",
+  "c": "Horace Walpole.jpg",
+  "by": "Джошуа Рейнолдс",
+  "lic": "общественное достояние",
+  "cap": "Орас Уолпол. Портрет работы Рейнолдса, 1756–1757"
+ },
+ "pt_chambers": {
+  "f": "ch24_portrait_chambers_by-cotes.jpg",
+  "c": "Sir William Chambers.jpg",
+  "by": "Фрэнсис Котс",
+  "lic": "общественное достояние",
+  "cap": "Чемберс. Портрет работы Фрэнсиса Котса, 1764"
+ },
+ "pt_soane": {
+  "f": "ch24_portrait_soane_by-lawrence.jpg",
+  "c": "Thomas Lawrence John Soane.JPG",
+  "by": "Томас Лоуренс",
+  "lic": "общественное достояние",
+  "cap": "Соун. Портрет работы Томаса Лоуренса, около 1829"
+ },
+ "pt_papworth": {
+  "f": "ch24_portrait_papworth_by-brockedon.jpg",
+  "c": "John Buonarotti Papworth.JPG",
+  "by": "Уильям Броккедон",
+  "lic": "общественное достояние",
+  "cap": "Папуорт. Портрет работы Уильяма Броккедона, до 1847"
+ },
+ "pt_jefferson": {
+  "f": "ch24_portrait_jefferson_by-peale.jpg",
+  "c": "Official Presidential portrait of Thomas Jefferson (by Rembrandt Peale, 1800).jpg",
+  "by": "Рембрандт Пил",
+  "lic": "общественное достояние",
+  "cap": "Томас Джефферсон. Портрет работы Рембрандта Пила, 1800"
+ },
+ "pt_copley": {
+  "f": "ch24_portrait_copley_self-portrait.jpg",
+  "c": "Self-Portrait 1769 John Singleton Copley.jpg",
+  "by": "Джон Синглтон Копли",
+  "lic": "общественное достояние",
+  "cap": "Копли. Автопортрет, 1769"
+ },
+ "pt_burke": {
+  "f": "ch24_portrait_burke_by-reynolds.jpg",
+  "c": "Sir Joshua Reynolds - Edmund Burke, 1729 - 1797. Statesman, orator and author - PG 2362 - National Galleries of Scotland (cropped).jpg",
+  "by": "Джошуа Рейнолдс",
+  "lic": "общественное достояние",
+  "cap": "Эдмунд Бёрк. Портрет работы Рейнолдса"
+ },
+ "pt_malone": {
+  "f": "ch24_portrait_malone_by-reynolds.jpg",
+  "c": "Joshua Reynolds (1723-1792) - Edmund Malone - NPG 709 - National Portrait Gallery.jpg",
+  "by": "Джошуа Рейнолдс",
+  "lic": "общественное достояние",
+  "cap": "Эдмонд Малоун. Портрет работы Рейнолдса, 1778"
+ },
+ "pt_george3": {
+  "f": "ch24_portrait_george3_by-ramsay.jpg",
+  "c": "Allan Ramsay - King George III in coronation robes - Google Art Project.jpg",
+  "by": "Аллан Рэмзи",
+  "lic": "общественное достояние",
+  "cap": "Георг III в коронационной мантии. Портрет работы Аллана Рэмзи, около 1765"
+ },
+ "pt_charles1": {
+  "f": "ch24_portrait_charles1_workshop-van-dyck.jpg",
+  "c": "King Charles I after original by van Dyck.jpg",
+  "by": "мастерская ван Дейка",
+  "lic": "общественное достояние",
+  "cap": "Карл I. Портрет из мастерской ван Дейка, 1636"
+ },
+ "pt_david": {
+  "f": "ch24_portrait_david_self-portrait.jpg",
+  "c": "David Self Portrait.jpg",
+  "by": "Жак Луи Давид",
+  "lic": "общественное достояние",
+  "cap": "Давид. Автопортрет, 1794"
+ },
+ "pt_marat": {
+  "f": "ch24_portrait_marat_by-boze.jpg",
+  "c": "Jean-Paul Marat portre.jpg",
+  "by": "Жозеф Боз",
+  "lic": "общественное достояние",
+  "cap": "Марат. Портрет работы Жозефа Боза, 1793"
+ },
+ "pt_robespierre": {
+  "f": "ch24_portrait_robespierre_anonymous.jpg",
+  "c": "Robespierre.jpg",
+  "by": "неизвестный художник",
+  "lic": "CC0",
+  "cap": "Робеспьер. Портрет неизвестного художника, около 1790"
+ },
+ "pt_mirabeau": {
+  "f": "ch24_portrait_mirabeau_by-boze.jpg",
+  "c": "Boze - Honoré de Mirabeau.jpg",
+  "by": "Жозеф Боз",
+  "lic": "общественное достояние",
+  "cap": "Мирабо. Портрет работы Жозефа Боза, 1789"
+ },
+ "pt_napoleon": {
+  "f": "ch24_portrait_napoleon_by-appiani.jpg",
+  "c": "Napoleon I of France by Andrea Appiani.jpg",
+  "by": "Андреа Аппиани",
+  "lic": "общественное достояние",
+  "cap": "Наполеон. Портрет работы Андреа Аппиани, 1805"
+ },
+ "pt_goya": {
+  "f": "ch24_portrait_goya_by-lopez.jpg",
+  "c": "Vicente López Portaña - el pintor Francisco de Goya.jpg",
+  "by": "Висенте Лопес",
+  "lic": "общественное достояние",
+  "cap": "Гойя. Портрет работы Висенте Лопеса, 1826"
+ },
+ "pt_ferdinand7": {
+  "f": "ch24_portrait_ferdinand7_by-lopez.jpg",
+  "c": "Fernando VII - Vicente López.jpg",
+  "by": "Висенте Лопес",
+  "lic": "общественное достояние",
+  "cap": "Фердинанд VII. Портрет работы Висенте Лопеса, 1814"
+ },
+ "pt_tiepolo": {
+  "f": "ch24_portrait_tiepolo_engraved-portrait.jpg",
+  "c": "Portret van kunstenaar Giovanni Battista Tiepolo Joannes Baptista Tiepolo Pictor (titel op object), RP-P-1950-465.jpg",
+  "by": "Рейксмюзеум",
+  "lic": "CC0",
+  "cap": "Тьеполо. Гравированный портрет из собрания Рейксмюзеума"
+ },
+ "pt_blake": {
+  "f": "ch24_portrait_blake_by-phillips.jpg",
+  "c": "William Blake by Thomas Phillips.jpg",
+  "by": "Томас Филлипс",
+  "lic": "общественное достояние",
+  "cap": "Блейк. Портрет работы Томаса Филлипса, 1807"
+ },
+ "pt_turner": {
+  "f": "ch24_portrait_turner_self-portrait.jpg",
+  "c": "Turner selfportrait (cropped).jpg",
+  "by": "Дж. М. У. Тёрнер",
+  "lic": "общественное достояние",
+  "cap": "Тёрнер. Автопортрет, около 1799"
+ },
+ "pt_constable": {
+  "f": "ch24_portrait_constable_by-reinagle.jpg",
+  "c": "John Constable by Ramsay Richard Reinagle.jpg",
+  "by": "Рамзи Ричард Рейнагл",
+  "lic": "общественное достояние",
+  "cap": "Констебл. Портрет работы Рамзи Ричарда Рейнагла, 1799"
+ },
+ "pt_friedrich": {
+  "f": "ch24_portrait_friedrich_by-kuegelgen.jpg",
+  "c": "Gerhard von Kügelgen portrait of Friedrich.jpg",
+  "by": "Герхард фон Кюгельген",
+  "lic": "общественное достояние",
+  "cap": "Фридрих. Портрет работы Герхарда фон Кюгельгена, 1808"
+ },
+ "pt_heim": {
+  "f": "ch24_portrait_heim_photo-carjat.jpg",
+  "c": "Portrait de François Joseph Heim, (1787-1865), peintre, PH51687(2).jpg",
+  "by": "фотоателье Каржа",
+  "lic": "CC0",
+  "cap": "Гейм. Фотография ателье Каржа, 1860–1890"
+ },
+ "pt_charles10": {
+  "f": "ch24_portrait_charles10_by-gerard.jpg",
+  "c": "Carlos X de Francia (François Gérard).jpg",
+  "by": "Франсуа Жерар",
+  "lic": "общественное достояние",
+  "cap": "Карл X. Портрет работы Франсуа Жерара, 1825"
+ },
+ "pt_palladio": {
+  "f": "ch24_portrait_palladio_by-maganza.jpg",
+  "c": "Andrea Palladio2.jpeg",
+  "by": "Алессандро Маганца",
+  "lic": "общественное достояние",
+  "cap": "Палладио. Портрет работы Алессандро Маганцы"
+ },
+ "pt_kent": {
+  "f": "ch24_portrait_kent_by-aikman.jpg",
+  "c": "William Kent.jpg",
+  "by": "Уильям Эйкман",
+  "lic": "общественное достояние",
+  "cap": "Кент. Портрет работы Уильяма Эйкмана, 1710-е"
+ },
+ "pt_hogarth": {
+  "f": "ch24_portrait_hogarth_self-portrait-with-pug.jpg",
+  "c": "The Painter and His Pug by William Hogarth.jpg",
+  "by": "Уильям Хогарт",
+  "lic": "общественное достояние",
+  "cap": "Хогарт. Автопортрет с мопсом, 1745"
+ },
+ "pt_reynolds": {
+  "f": "ch24_portrait_reynolds_self-portrait.jpg",
+  "c": "Sir Joshua Reynolds - Self-Portrait - Google Art Project (2315517).jpg",
+  "by": "Джошуа Рейнолдс",
+  "lic": "общественное достояние",
+  "cap": "Рейнолдс. Автопортрет, 1750"
+ },
+ "pt_gainsborough": {
+  "f": "ch24_portrait_gainsborough_self-portrait.jpg",
+  "c": "Thomas Gainsborough by Thomas Gainsborough.jpg",
+  "by": "Томас Гейнсборо",
+  "lic": "общественное достояние",
+  "cap": "Гейнсборо. Автопортрет, около 1758"
+ },
+ "pt_claude": {
+  "f": "ch24_portrait_claude_self-portrait.jpg",
+  "c": "Claude Gellée, dit le Lorrain, Self-portrait.jpg",
+  "by": "Клод Лоррен",
+  "lic": "общественное достояние",
+  "cap": "Клод Лоррен. Автопортрет"
+ },
+ "pt_michelangelo": {
+  "f": "ch24_portrait_michelangelo_attr-volterra.jpg",
+  "c": "Michelangelo Daniele da Volterra (dettaglio).jpg",
+  "by": "приписывается Даниеле да Вольтерре",
+  "lic": "общественное достояние",
+  "cap": "Микеланджело. Портрет, приписываемый Даниеле да Вольтерре, 1545"
+ },
+ "pt_elgreco": {
+  "f": "ch24_portrait_elgreco_possible-self-portrait.jpg",
+  "c": "El Greco - Portrait of a Man - WGA10554.jpg",
+  "by": "Эль Греко",
+  "lic": "общественное достояние",
+  "cap": "Эль Греко. «Портрет мужчины», возможно автопортрет, 1595–1600"
+ },
+ "pt_velazquez": {
+  "f": "ch24_portrait_velazquez_self-portrait.jpg",
+  "c": "Diego Velázquez Autorretrato 45 x 38 cm - Colección Real Academia de Bellas Artes de San Carlos - Museo de Bellas Artes de Valencia.jpg",
+  "by": "Диего Веласкес",
+  "lic": "общественное достояние",
+  "cap": "Веласкес. Автопортрет, около 1650"
+ },
+ "pt_vandyck": {
+  "f": "ch24_portrait_vandyck_self-portrait-with-sunflower.jpg",
+  "c": "Anthony van Dyck - Self-portrait with a Sunflower.jpg",
+  "by": "Антонис ван Дейк",
+  "lic": "общественное достояние",
+  "cap": "Ван Дейк. Автопортрет с подсолнухом, после 1633"
+ },
+ "pt_titian": {
+  "f": "ch24_portrait_titian_self-portrait.jpg",
+  "c": "Titian - Self-portrait (Museo del Prado).jpg",
+  "by": "Тициан",
+  "lic": "общественное достояние",
+  "cap": "Тициан. Автопортрет, около 1562"
+ },
+ "pt_rembrandt": {
+  "f": "ch24_portrait_rembrandt_self-portrait.jpg",
+  "c": "Rembrandt van Rijn - Self-Portrait - Google Art Project.jpg",
+  "by": "Рембрандт",
+  "lic": "общественное достояние",
+  "cap": "Рембрандт. Автопортрет, 1659"
+ },
+ "pt_raphael": {
+  "f": "ch24_portrait_raphael_self-portrait.jpg",
+  "c": "Raffaello Sanzio.jpg",
+  "by": "Рафаэль",
+  "lic": "общественное достояние",
+  "cap": "Рафаэль. Автопортрет, 1504–1506"
+ },
+ "pt_reni": {
+  "f": "ch24_portrait_reni_self-portrait.jpg",
+  "c": "Guido Reni - Self-portrait 2.jpg",
+  "by": "Гвидо Рени",
+  "lic": "общественное достояние",
+  "cap": "Гвидо Рени. Автопортрет, около 1603"
+ },
+ "pt_caravaggio": {
+  "f": "ch24_portrait_caravaggio_by-leoni.jpg",
+  "c": "Bild-Ottavio Leoni, Caravaggio.jpg",
+  "by": "Оттавио Леони",
+  "lic": "общественное достояние",
+  "cap": "Караваджо. Портрет работы Оттавио Леони, 1621"
+ },
+ "pt_moliere": {
+  "f": "ch24_portrait_moliere_by-mignard.jpg",
+  "c": "Pierre Mignard - Portrait de Jean-Baptiste Poquelin dit Molière (1622-1673) - Google Art Project (cropped).jpg",
+  "by": "Пьер Миньяр",
+  "lic": "общественное достояние",
+  "cap": "Мольер. Портрет работы Пьера Миньяра, 1658"
+ }
+});
+Object.assign(D.personImg,{"walpole":"pt_walpole","chambers":"pt_chambers","soane":"pt_soane","papworth":"pt_papworth","jefferson":"pt_jefferson","copley":"pt_copley","burke":"pt_burke","malone":"pt_malone","george3":"pt_george3","charles1":"pt_charles1","david":"pt_david","marat":"pt_marat","robespierre":"pt_robespierre","mirabeau":"pt_mirabeau","napoleon":"pt_napoleon","goya":"pt_goya","ferdinand7":"pt_ferdinand7","tiepolo":"pt_tiepolo","blake":"pt_blake","turner":"pt_turner","constable":"pt_constable","friedrich":"pt_friedrich","heim":"pt_heim","charles10":"pt_charles10","palladio":"pt_palladio","kent":"pt_kent","hogarth":"pt_hogarth","reynolds":"pt_reynolds","gainsborough":"pt_gainsborough","claude":"pt_claude","michelangelo":"pt_michelangelo","elgreco":"pt_elgreco","velazquez":"pt_velazquez","vandyck":"pt_vandyck","titian":"pt_titian","rembrandt":"pt_rembrandt","raphael":"pt_raphael","reni":"pt_reni","caravaggio":"pt_caravaggio","moliere":"pt_moliere"});
+D.noPortrait={vlieger:"Портрет Симона де Влигера в свободном доступе не найден."};
 D.wide=[
 {id:"styles",t:"Готика, Китай и Греция: вкусы в архитектуре",lead:"Глава показывает, как стиль перестаёт быть привычкой и становится выбором. Вот примеры, которых в тексте нет.",
  items:[

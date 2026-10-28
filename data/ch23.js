@@ -268,6 +268,157 @@ D.meta={n:23,title:"Век разума",sub:"Англия и Франция, XV
 D.short={wren:"Рен",borromini:"Борромини",palladio:"Палладио",burlington:"Берлингтон",kent:"Кент",pope:"Поп",claude:"Клод Лоррен",hogarth:"Хогарт",steen:"Я. Стен",guardi:"Гварди",reynolds:"Рейнолдс",gainsborough:"Гейнсборо",vandyck:"ван Дейк",velazquez:"Веласкес",hals:"Хальс",watteau:"Ватто",chardin:"Шарден",vermeer:"Вермер",houdon:"Гудон",bernini:"Бернини",fragonard:"Фрагонар",raphael:"Рафаэль",titian:"Тициан",carracci:"Карраччи",johnson:"Джонсон",versailles:"Версаль"};
 D.laneShort={en:"Англия",fr:"Франция",it:"Италия",nl:"Нидерланды, Испания"};
 D.questions=[["Что здесь отвечает на барокко?","К каждому примеру задай вопрос: что осталось от барокко, а что убрано."],["Чей образец за этим стоит?","У каждого мастера главы за спиной кто-то из прошлого: Палладио, Клод, Рафаэль, Вермер."],["Для кого это сделано?","Для двора, церкви, аристократа или для обычных людей. Это главный сдвиг XVIII века."]];
+/* портреты людей: файлы с Wikimedia Commons, проверены через API (лицензия и автор) */
+Object.assign(D.img,{
+ "pt_borromini": {
+  "f": "ch23_portrait_borromini_anonymous.jpg",
+  "c": "Borromini.jpg",
+  "by": "неизвестный художник",
+  "lic": "общественное достояние",
+  "cap": "Борромини. Портрет неизвестного художника, около 1630"
+ },
+ "pt_palladio": {
+  "f": "ch23_portrait_palladio_by-maganza.jpg",
+  "c": "Andrea Palladio2.jpeg",
+  "by": "Алессандро Маганца",
+  "lic": "общественное достояние",
+  "cap": "Палладио. Портрет работы Алессандро Маганцы"
+ },
+ "pt_burlington": {
+  "f": "ch23_portrait_burlington_by-richardson.jpg",
+  "c": "3rdEarlOfBurlingtonPortrait.jpg",
+  "by": "Джонатан Ричардсон",
+  "lic": "общественное достояние",
+  "cap": "Лорд Берлингтон. Портрет работы Джонатана Ричардсона, 1717–1719"
+ },
+ "pt_pope": {
+  "f": "ch23_portrait_pope_by-dahl.jpg",
+  "c": "Alexander Pope by Michael Dahl.jpg",
+  "by": "Майкл Даль",
+  "lic": "общественное достояние",
+  "cap": "Александр Поп. Портрет работы Майкла Даля, около 1727"
+ },
+ "pt_claude": {
+  "f": "ch23_portrait_claude_self-portrait.jpg",
+  "c": "Claude Gellée, dit le Lorrain, Self-portrait.jpg",
+  "by": "Клод Лоррен",
+  "lic": "общественное достояние",
+  "cap": "Клод Лоррен. Автопортрет"
+ },
+ "pt_steen": {
+  "f": "ch23_portrait_steen_self-portrait.jpg",
+  "c": "1670 Jan Havicksz. Steen - zelfportret.jpg",
+  "by": "Ян Стен",
+  "lic": "общественное достояние",
+  "cap": "Ян Стен. Автопортрет, около 1670"
+ },
+ "pt_guardi": {
+  "f": "ch23_portrait_guardi_by-longhi.jpg",
+  "c": "Ca' Rezzonico - Ritratto di Francesco Guardi 1764 - Pietro Longhi.jpg",
+  "by": "Пьетро Лонги",
+  "lic": "общественное достояние",
+  "cap": "Франческо Гварди. Портрет работы Пьетро Лонги, 1764"
+ },
+ "pt_gainsborough": {
+  "f": "ch23_portrait_gainsborough_self-portrait.jpg",
+  "c": "Thomas Gainsborough by Thomas Gainsborough.jpg",
+  "by": "Томас Гейнсборо",
+  "lic": "общественное достояние",
+  "cap": "Гейнсборо. Автопортрет, около 1758"
+ },
+ "pt_vandyck": {
+  "f": "ch23_portrait_vandyck_self-portrait-with-sunflower.jpg",
+  "c": "Anthony van Dyck - Self-portrait with a Sunflower.jpg",
+  "by": "Антонис ван Дейк",
+  "lic": "общественное достояние",
+  "cap": "Ван Дейк. Автопортрет с подсолнухом, после 1633"
+ },
+ "pt_velazquez": {
+  "f": "ch23_portrait_velazquez_self-portrait.jpg",
+  "c": "Diego Velázquez Autorretrato 45 x 38 cm - Colección Real Academia de Bellas Artes de San Carlos - Museo de Bellas Artes de Valencia.jpg",
+  "by": "Диего Веласкес",
+  "lic": "общественное достояние",
+  "cap": "Веласкес. Автопортрет, около 1650"
+ },
+ "pt_hals": {
+  "f": "ch23_portrait_hals_after-hals.jpg",
+  "c": "After Frans Hals - Portrait of Frans Hals - Indianapolis.jpg",
+  "by": "по оригиналу Франса Хальса",
+  "lic": "общественное достояние",
+  "cap": "Франс Хальс. Портрет по оригиналу самого художника, около 1650"
+ },
+ "pt_watteau": {
+  "f": "ch23_portrait_watteau_by-carriera.jpg",
+  "c": "(Treviso) The painter Antoine Watteau by Rosalba Carriera - Museo civico di Santa Caterina.jpg",
+  "by": "Розальба Каррьера",
+  "lic": "CC BY-SA 4.0",
+  "cap": "Ватто. Портрет работы Розальбы Каррьеры, 1720–1721"
+ },
+ "pt_vermeer": {
+  "f": "ch23_portrait_vermeer_presumed-self-portrait.jpg",
+  "c": "Cropped version of Jan Vermeer van Delft 002.jpg",
+  "by": "Ян Вермеер",
+  "lic": "общественное достояние",
+  "cap": "Вермер. Предполагаемый автопортрет (фрагмент картины «Сводня», 1656)"
+ },
+ "pt_houdon": {
+  "f": "ch23_portrait_houdon_by-peale.jpg",
+  "c": "Jean antoine houdon-rembrandt peale.jpg",
+  "by": "Рембрандт Пил",
+  "lic": "общественное достояние",
+  "cap": "Гудон. Портрет работы Рембрандта Пила, 1808"
+ },
+ "pt_bernini": {
+  "f": "ch23_portrait_bernini_self-portrait.jpg",
+  "c": "Gian Lorenzo Bernini, self-portrait, c1623.jpg",
+  "by": "Джованни Лоренцо Бернини",
+  "lic": "общественное достояние",
+  "cap": "Бернини. Автопортрет, около 1623"
+ },
+ "pt_fragonard": {
+  "f": "ch23_portrait_fragonard_self-portrait.jpg",
+  "c": "Jean-Honoré Fragonard - Self-portrait with smiling face.jpg",
+  "by": "Жан Оноре Фрагонар",
+  "lic": "общественное достояние",
+  "cap": "Фрагонар. Автопортрет, около 1800"
+ },
+ "pt_raphael": {
+  "f": "ch23_portrait_raphael_self-portrait.jpg",
+  "c": "Raffaello Sanzio.jpg",
+  "by": "Рафаэль",
+  "lic": "общественное достояние",
+  "cap": "Рафаэль. Автопортрет, 1504–1506"
+ },
+ "pt_titian": {
+  "f": "ch23_portrait_titian_self-portrait.jpg",
+  "c": "Titian - Self-portrait (Museo del Prado).jpg",
+  "by": "Тициан",
+  "lic": "общественное достояние",
+  "cap": "Тициан. Автопортрет, около 1562"
+ },
+ "pt_carracci": {
+  "f": "ch23_portrait_carracci_self-portrait.jpg",
+  "c": "Annibale Carracci, Autoritratto .jpg",
+  "by": "Аннибале Карраччи",
+  "lic": "общественное достояние",
+  "cap": "Аннибале Карраччи. Автопортрет, около 1580"
+ },
+ "pt_johnson": {
+  "f": "ch23_portrait_johnson_by-reynolds.jpg",
+  "c": "Samuel Johnson by Joshua Reynolds.jpg",
+  "by": "Джошуа Рейнолдс",
+  "lic": "общественное достояние",
+  "cap": "Сэмюэл Джонсон. Портрет работы Рейнолдса, 1772"
+ },
+ "pt_versailles": {
+  "f": "ch23_portrait_versailles_courtyard-photo.jpg",
+  "c": "Palace of Versailles - Wide view of the Cour d'Honneur and Gabriel and Dufour wings.jpg",
+  "by": "iMahesh",
+  "lic": "CC BY-SA 4.0",
+  "cap": "Версаль. Парадный двор дворца (фотография)"
+ }
+});
+Object.assign(D.personImg,{"borromini":"pt_borromini","palladio":"pt_palladio","burlington":"pt_burlington","pope":"pt_pope","claude":"pt_claude","steen":"pt_steen","guardi":"pt_guardi","gainsborough":"pt_gainsborough","vandyck":"pt_vandyck","velazquez":"pt_velazquez","hals":"pt_hals","watteau":"pt_watteau","vermeer":"pt_vermeer","houdon":"pt_houdon","bernini":"pt_bernini","fragonard":"pt_fragonard","raphael":"pt_raphael","titian":"pt_titian","carracci":"pt_carracci","johnson":"pt_johnson","versailles":"pt_versailles"});
 /* «Шире книги»: примеры и ссылки, которых нет в главе. Всё, что ниже, помечено как вне главы. */
 D.wide=[
 {id:"hogarth",t:"Хогарт: серии, которые стоит увидеть целиком",lead:"В главе показана одна сцена из «Карьеры мота». Хогарт мыслил циклами: каждая серия рассказывает историю, как роман в картинках. Если пройти хотя бы две серии подряд, становится ясно, что значит «живописец современной жизни».",
