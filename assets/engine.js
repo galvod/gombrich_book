@@ -203,15 +203,16 @@ render.time=function(){
   ${filterChips("tf",LANE_OPTS,"all")}<div class="chips"><label class="small"><input type="checkbox" id="tonly"> только герои главы, без упомянутых</label></div>
   <div class="scroll"><div id="tsvg"></div></div>
   <h3 style="margin-top:24px">События и даты из главы</h3>
-  <div class="scroll"><table><thead><tr><th>Год</th><th>Что</th><th>Заметка</th></tr></thead><tbody>${D.events.map(e=>`<tr><td>${e.y}</td><td><span class="dot l-${e.lane}"></span>${esc(e.t)}</td><td>${esc(e.n)}</td></tr>`).join("")}</tbody></table></div>`;
+  <p class="muted small">Знак ┆ рядом с годом означает, что эта дата отмечена пунктирной линией на графике.</p>
+  <div class="scroll"><table><thead><tr><th>Год</th><th>Что</th><th>Заметка</th></tr></thead><tbody>${D.events.map(e=>`<tr><td>${e.y}${(D.meta.time.marks||[]).includes(e.y)?` <span class="small" style="color:var(--accent)" title="Эта дата отмечена пунктиром на графике">┆</span>`:""}</td><td><span class="dot l-${e.lane}"></span>${esc(e.t)}</td><td>${esc(e.n)}</td></tr>`).join("")}</tbody></table></div>`;
   let fl="all";const draw=()=>{
     const only=$("#tonly").checked;
     const P=D.people.filter(p=>p.kind!=="place"&&(fl==="all"||p.lane===fl)&&(!only||!p.ext)).sort((a,b)=>a.b-b.b);
-    const X0=160,X1=980,Y0=D.meta.time.y0,Y1=D.meta.time.y1,rh=24,top=34,H=top+P.length*rh+16;
+    const X0=160,X1=980,Y0=D.meta.time.y0,Y1=D.meta.time.y1,rh=24,top=54,H=top+P.length*rh+16;
     const x=y=>X0+(Math.min(Math.max(y,Y0),Y1)-Y0)/(Y1-Y0)*(X1-X0);
     let s=`<svg viewBox="0 0 1000 ${H}" width="100%" style="min-width:820px" role="img" aria-label="Годы жизни героев главы">`;
-    for(let y=D.meta.time.t0;y<=D.meta.time.y1;y+=D.meta.time.step)s+=`<line x1="${x(y)}" x2="${x(y)}" y1="${top-8}" y2="${H-10}" stroke="var(--line)"/><text x="${x(y)}" y="18" font-size="11" text-anchor="middle" class="g">${y}</text>`;
-    D.meta.time.marks.forEach(y=>s+=`<line x1="${x(y)}" x2="${x(y)}" y1="${top-8}" y2="${H-10}" stroke="var(--accent)" stroke-dasharray="4 3"/>`);
+    for(let y=D.meta.time.t0;y<=D.meta.time.y1;y+=D.meta.time.step)s+=`<line x1="${x(y)}" x2="${x(y)}" y1="${top-8}" y2="${H-10}" stroke="var(--line)"/><text x="${x(y)}" y="40" font-size="11" text-anchor="middle" class="g">${y}</text>`;
+    D.meta.time.marks.forEach((y,mi,arr)=>{const lb=(D.meta.time.markLabels||{})[y]||String(y),xx=x(y),nx=arr[mi+1]!=null?x(arr[mi+1]):null,end=xx>700||(nx!=null&&nx-xx<300);s+=`<line x1="${xx}" x2="${xx}" y1="8" y2="${H-10}" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 3"/><text x="${xx+(end?-5:5)}" y="18" font-size="11.5" font-weight="700" text-anchor="${end?"end":"start"}" fill="var(--accent)">${esc(lb)}</text>`;});
     P.forEach((p,i)=>{const cy=top+i*rh+rh/2,col=`var(--${p.lane})`;
       s+=`<g data-open="${p.id}" tabindex="0" role="button" aria-label="${esc(p.name)} ${esc(p.years)}" style="cursor:pointer"><rect x="0" y="${cy-rh/2}" width="1000" height="${rh}" fill="transparent"/><text x="152" y="${cy+4}" font-size="12" text-anchor="end"${p.ext?' class="g"':""}>${esc(SHORT[p.id]||p.name)}</text><rect x="${x(p.b)}" y="${cy-(p.ext?4:6)}" width="${Math.max(4,x(p.d)-x(p.b))}" height="${p.ext?8:12}" rx="4" fill="${col}" opacity=".9"/></g>`;
       D.works.filter(w=>w.a===p.id).forEach(w=>{const yr=parseInt((w.year.match(/\d{4}/)||[0])[0]);if(yr)s+=`<circle cx="${x(yr)}" cy="${cy}" r="4.5" fill="var(--surface)" stroke="${col}" stroke-width="2.5" data-open="${w.id}" tabindex="0" role="button" aria-label="${esc(w.title)}" style="cursor:pointer"><title>ил. ${esc(w.ill)}: ${esc(w.title)}, ${esc(w.year)}</title></circle>`;});
