@@ -2,7 +2,7 @@
 :root{
   --bg:#F2F4F3; --surface:#FFFFFF; --ink:#1B2430; --muted:#5A6672; --line:#D8DDE0;
   --accent:#2F5D86; --accent-soft:#E2ECF4; --on-accent:#FFFFFF;
-  --en:#2F5D86; --fr:#A8506A; --it:#8E6F1F; --nl:#53744F; --us:#9A4B2A; --es:#7A4C9E; --de:#2C7A7A; --xx:#6B7580;
+  --en:#2F5D86; --fr:#A8506A; --it:#8E6F1F; --nl:#53744F; --us:#C2651A; --es:#7A4C9E; --de:#2C7A7A; --xx:#6B7580;
   --good:#2F7A52; --warn:#B26A12; --bad:#B23A48;
   --f-display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
   --f-text:"Literata",Georgia,"Times New Roman",serif;
@@ -11,12 +11,12 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#12171D; --surface:#1A212A; --ink:#E7EBEF; --muted:#9AA6B2; --line:#2C3641;
   --accent:#7FB0DC; --accent-soft:#1F3347; --on-accent:#0F1720;
-  --en:#7FB0DC; --fr:#E08AA3; --it:#D9B45B; --nl:#8FB58B; --us:#E0936B; --es:#B896D6; --de:#6FC0C0; --xx:#9AA6B2;
+  --en:#7FB0DC; --fr:#E08AA3; --it:#D9B45B; --nl:#8FB58B; --us:#EBA35A; --es:#B896D6; --de:#6FC0C0; --xx:#9AA6B2;
   --good:#7CCB9B; --warn:#E3A55A; --bad:#EE8E98; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#12171D; --surface:#1A212A; --ink:#E7EBEF; --muted:#9AA6B2; --line:#2C3641;
   --accent:#7FB0DC; --accent-soft:#1F3347; --on-accent:#0F1720;
-  --en:#7FB0DC; --fr:#E08AA3; --it:#D9B45B; --nl:#8FB58B; --us:#E0936B; --es:#B896D6; --de:#6FC0C0; --xx:#9AA6B2;
+  --en:#7FB0DC; --fr:#E08AA3; --it:#D9B45B; --nl:#8FB58B; --us:#EBA35A; --es:#B896D6; --de:#6FC0C0; --xx:#9AA6B2;
   --good:#7CCB9B; --warn:#E3A55A; --bad:#EE8E98; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-text);font-size:16px;line-height:1.6;
@@ -127,3 +127,6 @@ a.lk:hover{border-color:var(--accent)} a.lk::after{content:" ↗";color:var(--mu
 .card.pcard>.pth{grid-row:1/6;width:76px;height:96px;object-fit:cover;object-position:top;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
 .card.pcard>.pth.none{display:grid;place-items:center;text-align:center;font:600 11px/1.2 var(--f-ui);color:var(--muted);padding:4px}
 .card.pcard>*:not(.pth){grid-column:2}
+.card.pcard .yrs{display:block;margin-top:2px}
+.card.pcard .pst{display:block;margin-top:8px;font-size:9px;letter-spacing:.06em}
+.card.pcard .pst .dot{width:7px;height:7px;margin-right:5px}

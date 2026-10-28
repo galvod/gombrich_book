@@ -1,4 +1,4 @@
-const LANES={en:"Англия",us:"Америка",fr:"Франция",es:"Испания",de:"Германия",xx:"Образцы из прошлого"};
+const LANES={en:"Англия",us:"Америка",fr:"Франция",es:"Испания",de:"Германия",it:"Италия",nl:"Нидерланды и Фландрия"};
 const D={};
 /* ext:true = факт взят не из главы, а из справочников или это упоминание */
 D.people=[
@@ -53,7 +53,7 @@ D.people=[
 {id:"ferdinand7",name:"Фердинанд VII",years:"1784–1833",b:1784,d:1833,lane:"es",role:"король Испании, модель Гойи",gx:1814,ext:true,
  sum:"Король на портрете Гойи ил. 318. По Гомбриху, лицо выдаёт тщеславие и пустоту. Годы жизни из справочников.",
  ref:"ил. 318, 319",works:["w318","w319"],tags:["портрет"]},
-{id:"tiepolo",name:"Джованни Баттиста Тьеполо",years:"1696–1770",b:1696,d:1770,lane:"xx",role:"венецианский живописец XVIII века",gx:1765,ext:true,
+{id:"tiepolo",name:"Джованни Баттиста Тьеполо",years:"1696–1770",b:1696,d:1770,lane:"it",role:"венецианский живописец XVIII века",gx:1765,ext:true,
  sum:"Закончил дни придворным художником в Мадриде. В живописи Гойи есть отблеск его сияющего великолепия. Годы жизни из справочников.",
  ref:"текст к ил. 317",works:[],tags:["живопись"]},
 {id:"blake",name:"Уильям Блейк",years:"1757–1827",b:1757,d:1827,lane:"en",role:"поэт, мистик, гравёр",gx:1794,
@@ -74,10 +74,10 @@ D.people=[
 {id:"charles10",name:"Карл X",years:"1757–1836",b:1757,d:1836,lane:"fr",role:"король Франции",gx:1825,ext:true,
  sum:"Изображён в момент награждения художников в Салоне. Годы жизни из справочников.",
  ref:"подпись финальной иллюстрации",works:["wsalon"],tags:["выставки"]},
-{id:"vlieger",name:"Симон де Влигер",years:"около 1601–1653",b:1601,d:1653,lane:"xx",role:"голландский маринист",gx:1640,ext:true,
+{id:"vlieger",name:"Симон де Влигер",years:"около 1601–1653",b:1601,d:1653,lane:"nl",role:"голландский маринист",gx:1640,ext:true,
  sum:"Голландский художник XVII века. Гомбрих сравнивает его морской пейзаж (стр. 418, ил. 271) с «Вьюгой» Тернера: голландец писал и то, что знал, Тернер лишь впечатление. Годы жизни из справочников.",
  ref:"стр. 418, ил. 271",works:[],tags:["пейзаж"]},
-{id:"palladio",name:"Андреа Палладио",years:"1508–1580",b:1508,d:1580,lane:"xx",role:"архитектор, автор книг о зодчестве",gx:1560,ext:true,
+{id:"palladio",name:"Андреа Палладио",years:"1508–1580",b:1508,d:1580,lane:"it",role:"архитектор, автор книг о зодчестве",gx:1560,ext:true,
  sum:"Его книги считались гарантией «правильного стиля». Но если обращаться за правилами к книгам, сразу возникает вопрос: «Почему именно Палладио?»",
  ref:"начало главы",works:[],tags:["архитектура"]},
 {id:"kent",name:"Уильям Кент",years:"1685–1748",b:1685,d:1748,lane:"en",role:"архитектор, декоратор",gx:1730,ext:true,
@@ -92,37 +92,37 @@ D.people=[
 {id:"gainsborough",name:"Томас Гейнсборо",years:"1727–1788",b:1727,d:1788,lane:"en",role:"портретист и пейзажист",gx:1765,ext:true,
  sum:"С него, по Гомбриху, начинает Констебл, но Гейнсборо ещё отбирал «живописные» мотивы по меркам традиции. Для него природа оставалась фоном идиллических сцен (стр. 470, ил. 307).",
  ref:"текст к ил. 324",works:[],tags:["пейзаж"]},
-{id:"claude",name:"Клод Лоррен",years:"1600–1682",b:1600,d:1682,lane:"xx",role:"пейзажист",gx:1650,ext:true,
+{id:"claude",name:"Клод Лоррен",years:"1600–1682",b:1600,d:1682,lane:"fr",role:"пейзажист",gx:1650,ext:true,
  sum:"Образец идеального пейзажа (стр. 396, ил. 255). Его безмятежная простота и ясность мира-грёзы не повторяются у Тернера, который хотел с ним соперничать.",
  ref:"к ил. 322, 324",works:[],tags:["пейзаж"]},
-{id:"michelangelo",name:"Микеланджело",years:"1475–1564",b:1475,d:1564,lane:"xx",role:"скульптор, живописец",gx:1510,ext:true,
+{id:"michelangelo",name:"Микеланджело",years:"1475–1564",b:1475,d:1564,lane:"it",role:"скульптор, живописец",gx:1510,ext:true,
  sum:"В образе Создателя у Блейка есть что-то от фигуры Бога у Микеланджело (стр. 312, ил. 200), которым Блейк восхищался.",
  ref:"к ил. 321",works:[],tags:["образец"]},
-{id:"elgreco",name:"Эль Греко",years:"1541–1614",b:1541,d:1614,lane:"xx",role:"живописец",gx:1595,ext:true,
+{id:"elgreco",name:"Эль Греко",years:"1541–1614",b:1541,d:1614,lane:"es",role:"живописец",gx:1595,ext:true,
  sum:"Часть традиции испанской живописи, которой Гойя владел в совершенстве (стр. 372, ил. 238).",
  ref:"к ил. 317",works:[],tags:["образец"]},
-{id:"velazquez",name:"Диего Веласкес",years:"1599–1660",b:1599,d:1660,lane:"xx",role:"придворный живописец",gx:1640,ext:true,
+{id:"velazquez",name:"Диего Веласкес",years:"1599–1660",b:1599,d:1660,lane:"es",role:"придворный живописец",gx:1640,ext:true,
  sum:"Он, как и Тициан, не льстил могуществу портретируемых, но Гойя ещё беспощаднее (стр. 407, ил. 264).",
  ref:"к ил. 317, 318",works:[],tags:["портрет"]},
-{id:"vandyck",name:"Антонис ван Дейк",years:"1599–1641",b:1599,d:1641,lane:"xx",role:"придворный портретист",gx:1635,ext:true,
+{id:"vandyck",name:"Антонис ван Дейк",years:"1599–1641",b:1599,d:1641,lane:"nl",role:"придворный портретист",gx:1635,ext:true,
  sum:"Парадные портреты Гойи на первый взгляд напоминают ван Дейка (стр. 404, ил. 261) и Рейнолдса.",
  ref:"к ил. 318",works:[],tags:["портрет"]},
-{id:"titian",name:"Тициан",years:"около 1488–1576",b:1488,d:1576,lane:"xx",role:"венецианский живописец",gx:1540,ext:true,
+{id:"titian",name:"Тициан",years:"около 1488–1576",b:1488,d:1576,lane:"it",role:"венецианский живописец",gx:1540,ext:true,
  sum:"С ним Гомбрих сравнивает мастерство Гойи в передаче блеска шёлка и золота. Как и Веласкес, Тициан не льстил моделям.",
  ref:"к ил. 318",works:[],tags:["портрет"]},
-{id:"rembrandt",name:"Рембрандт",years:"1606–1669",b:1606,d:1669,lane:"xx",role:"живописец и гравёр",gx:1650,ext:true,
+{id:"rembrandt",name:"Рембрандт",years:"1606–1669",b:1606,d:1669,lane:"nl",role:"живописец и гравёр",gx:1650,ext:true,
  sum:"Как и он, Гойя исполнил множество офортов.",
  ref:"к ил. 320",works:[],tags:["гравюра"]},
-{id:"raphael",name:"Рафаэль",years:"1483–1520",b:1483,d:1520,lane:"xx",role:"живописец",gx:1510,ext:true,
+{id:"raphael",name:"Рафаэль",years:"1483–1520",b:1483,d:1520,lane:"it",role:"живописец",gx:1510,ext:true,
  sum:"Образец «идеализации» природы, о котором спорили теоретики вместе с Карраччи, Рени и Рейнолдсом.",
  ref:"начало главы",works:[],tags:["идеализм"]},
-{id:"reni",name:"Гвидо Рени",years:"1575–1642",b:1575,d:1642,lane:"xx",role:"живописец болонской школы",gx:1620,ext:true,
+{id:"reni",name:"Гвидо Рени",years:"1575–1642",b:1575,d:1642,lane:"it",role:"живописец болонской школы",gx:1620,ext:true,
  sum:"В начале главы назван среди «идеалистов».",
  ref:"начало главы",works:[],tags:["идеализм"]},
-{id:"caravaggio",name:"Караваджо",years:"1571–1610",b:1571,d:1610,lane:"xx",role:"живописец",gx:1600,ext:true,
+{id:"caravaggio",name:"Караваджо",years:"1571–1610",b:1571,d:1610,lane:"it",role:"живописец",gx:1600,ext:true,
  sum:"В начале главы назван среди «натуралистов», мастерски воспроизводивших натуру.",
  ref:"начало главы",works:[],tags:["натурализм"]},
-{id:"moliere",name:"Мольер",years:"1622–1673",b:1622,d:1673,lane:"xx",role:"драматург",gx:1670,ext:true,
+{id:"moliere",name:"Мольер",years:"1622–1673",b:1622,d:1673,lane:"fr",role:"драматург",gx:1670,ext:true,
  sum:"Герой его комедии удивился, что всю жизнь говорил прозой. Гомбрих сравнивает: художники XVIII века вдруг осознали, что у них есть «стиль».",
  ref:"начало главы",works:[],tags:["стиль"]}
 ];
@@ -210,7 +210,7 @@ D.blocks=[
 {t:"Два пути после разрыва",s:"Художники либо живописцы-поэты (Тернер, Фридрих), либо исследователи видимого мира (Констебл). Гомбрих считает второй путь значительно важнее.",e:["heim","charles10"],w:["wsalon"]}
 ];
 D.events=[
-{y:1492,t:"Открытие Америки",n:"Условное начало «нового времени» в учебниках.",lane:"xx"},
+{y:1492,t:"Открытие Америки",n:"Условное начало «нового времени» в учебниках.",lane:"es"},
 {y:1770,t:"Готическая вилла Уолпола",n:"Около 1770 воспринималась как прихоть (ил. 311).",lane:"en"},
 {y:1783,t:"Мир с США",n:"Король Георг III вынужден подписать мир с Соединёнными Штатами.",lane:"en"},
 {y:1785,t:"Картина Копли",n:"Показана в 1785 году, вызвала сенсацию (ил. 315).",lane:"us"},
@@ -301,7 +301,7 @@ D.meta={n:24,title:"Разрыв традиции",sub:"Англия, Амери
  time:{y0:1450,y1:1870,t0:1500,step:50,marks:[1789],note:"Вертикаль: 1789 год, начало Французской революции."},graph:{y0:1450,y1:1870,t0:1500,step:50},cmp:["w322","w325"],
  wideLead:"Глава показывает основные имена и примеры. Здесь собраны другие работы и места эпохи революций и романтизма: смотри рядом с чтением, чтобы получить полную картину. Всё это вне главы."};
 D.short={walpole:"Уолпол",chambers:"Чемберс",soane:"Соун",papworth:"Папуорт",jefferson:"Джефферсон",copley:"Копли",burke:"Бёрк",malone:"Малоун",george3:"Георг III",charles1:"Карл I",david:"Давид",marat:"Марат",robespierre:"Робеспьер",mirabeau:"Мирабо",napoleon:"Наполеон",goya:"Гойя",ferdinand7:"Фердинанд VII",tiepolo:"Тьеполо",blake:"Блейк",turner:"Тернер",constable:"Констебл",friedrich:"Фридрих",heim:"Гейм",charles10:"Карл X",vlieger:"де Влигер",palladio:"Палладио",kent:"Кент",hogarth:"Хогарт",reynolds:"Рейнолдс",gainsborough:"Гейнсборо",claude:"Клод Лоррен",michelangelo:"Микеланджело",elgreco:"Эль Греко",velazquez:"Веласкес",vandyck:"ван Дейк",titian:"Тициан",rembrandt:"Рембрандт",raphael:"Рафаэль",reni:"Рени",caravaggio:"Караваджо",moliere:"Мольер"};
-D.laneShort={en:"Англия",us:"Америка",fr:"Франция",es:"Испания",de:"Германия",xx:"Прошлое"};
+D.laneShort={en:"Англия",us:"Америка",fr:"Франция",es:"Испания",de:"Германия",it:"Италия",nl:"Нидерланды"};
 D.questions=[["Что здесь выбрано, а не унаследовано?","Стиль дома, сюжет картины, путь художника: теперь это решения, а не привычки."],["Кто решает, что хорошо?","Заказчик, академия, выставка и критика или сам художник и его внутреннее зрение."],["К чему обращён художник?","К прошлому (готика, Греция, Клод), к современности (Давид) или к видению и природе (Блейк, Констебл)."]];
 D.en={walpole:"Horace Walpole",chambers:"William Chambers",soane:"John Soane",papworth:"John Buonarotti Papworth",jefferson:"Thomas Jefferson",copley:"John Singleton Copley",burke:"Edmund Burke",malone:"Edmond Malone",george3:"George III",charles1:"Charles I",david:"Jacques-Louis David",marat:"Jean-Paul Marat",robespierre:"Maximilien Robespierre",mirabeau:"Honoré Gabriel Riqueti, comte de Mirabeau",napoleon:"Napoleon Bonaparte",goya:"Francisco de Goya",ferdinand7:"Ferdinand VII of Spain",tiepolo:"Giovanni Battista Tiepolo",blake:"William Blake",turner:"J. M. W. Turner",constable:"John Constable",friedrich:"Caspar David Friedrich",heim:"François Joseph Heim",charles10:"Charles X of France",vlieger:"Simon de Vlieger",palladio:"Andrea Palladio",kent:"William Kent",hogarth:"William Hogarth",reynolds:"Joshua Reynolds",gainsborough:"Thomas Gainsborough",claude:"Claude Lorrain",michelangelo:"Michelangelo",elgreco:"El Greco",velazquez:"Diego Velázquez",vandyck:"Anthony van Dyck",titian:"Titian",rembrandt:"Rembrandt",raphael:"Raphael",reni:"Guido Reni",caravaggio:"Caravaggio",moliere:"Molière",
  w311:"Strawberry Hill",w312:"Dorset House, Cheltenham",w313:"Design for a villa (Sketches in Architecture)",w314:"Monticello",w315:"Charles I Demanding the Five Members",w316:"The Death of Marat",w317:"Majas on a Balcony",w318:"Ferdinand VII of Spain",w319:"Ferdinand VII (detail)",w320:"The Giant",w321:"The Ancient of Days (Europe a Prophecy)",w322:"Dido Building Carthage",w323:"Snow Storm: Steam-Boat off a Harbour's Mouth",w324:"Study of Three Trees",w325:"The Hay Wain",w326:"Mountain landscape in Silesia",wsalon:"Charles X distributing awards at the Salon of 1824"};

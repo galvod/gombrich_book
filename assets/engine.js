@@ -27,7 +27,7 @@ function linksOf(id){const out=[];D.edges.forEach(([a,b,t,n])=>{if(a===id)out.pu
 function sheetBodyBase(id){
   const e=ENT[id];if(!e)return"";const o=e.o;let h="";
   if(e.k==="person"){
-    h+=`<div class="lab">${o.kind==="place"?"Место":"Человек"} · <span class="dot ${lane(id)}"></span>${LANES[o.lane]}</div><h2>${esc(o.name)}</h2><p class="muted">${esc(o.years)} · ${esc(o.role)}</p>`;
+    h+=`<div class="lab">${o.kind==="place"?"Место":(o.ext?"Только упомянут":"Герой главы")} · <span class="dot ${lane(id)}"></span>${LANES[o.lane]}</div><h2>${esc(o.name)}</h2><p class="muted">${esc(o.years)} · ${esc(o.role)}</p>`;
     if(o.ext)h+=`<p class="ext">Вне главы: даты и роль из справочников, в тексте только упоминание.</p>`;
     h+=`<p>${esc(o.sum)}</p><p class="small muted">В книге: ${esc(o.ref)}</p>`;
     if(o.note)h+=`<div class="note">${esc(o.note)}</div>`;
@@ -98,7 +98,7 @@ function portraitThumb(id){
 }
 function cardFor(id){
   const e=ENT[id],o=e.o;
-  if(e.k==="person")return `<button class="card btn pcard" data-open="${id}">${portraitThumb(id)}<span class="lab"><span class="dot ${lane(id)}"></span>${o.kind==="place"?"Место":(o.ext?"Только упомянут":"Герой главы")} · ${esc(o.years)}</span><h3>${esc(o.name)}</h3>${D.en[o.id]?`<span class="names">${esc(D.en[o.id])}</span>`:""}<span class="small muted">${esc(o.role)}</span></button>`;
+  if(e.k==="person")return `<button class="card btn pcard" data-open="${id}">${portraitThumb(id)}<h3>${esc(o.name)}</h3>${D.en[o.id]?`<span class="names">${esc(D.en[o.id])}</span>`:""}<span class="small muted yrs">${esc(o.years)}</span><span class="small muted">${esc(o.role)}</span><span class="lab pst"><span class="dot ${lane(id)}"></span>${o.kind==="place"?"Место":(o.ext?"Только упомянут":"Герой главы")}</span></button>`;
   if(e.k==="work")return `<button class="card btn" data-open="${id}"><span class="lab"><span class="dot ${lane(id)}"></span>ил. ${esc(o.ill)} · ${esc(o.year)}</span>${D.workImg[id]?imgFig(D.workImg[id]).replace(/<figcaption>.*<\/figcaption>/,""):""}<h3>${esc(o.title)}</h3>${D.en[o.id]?`<span class="names">${esc(D.en[o.id])}</span>`:""}<span class="small muted">${esc(o.a?title(o.a):(o.authorText||""))}</span></button>`;
   if(e.k==="term")return `<button class="card btn" data-open="${id}"><span class="lab">Термин</span><h3>${esc(o.name)}</h3><span class="small muted">${esc(o.def)}</span></button>`;
   return `<button class="card btn" data-open="${id}"><span class="lab">Раздел главы</span><h3>${esc(o.t)}</h3><span class="small muted">${esc(o.s)}</span></button>`;
@@ -171,8 +171,8 @@ render.map=function(){
 
 render.time=function(){
   const v=$("#v-time");
-  v.innerHTML=`<h2>Лента времени</h2><p class="muted">Жизнь героев главы и их образцов. Точки на строках: работы из главы. ${esc(D.meta.time.note)}</p>
-  ${filterChips("tf",LANE_OPTS,"all")}<div class="chips"><label class="small"><input type="checkbox" id="tonly"> только герои главы, без образцов из прошлого</label></div>
+  v.innerHTML=`<h2>Лента времени</h2><p class="muted">Жизнь героев главы и тех, кто только упомянут. Цвет показывает страну, толстая полоса — герой главы, тонкая — только упомянут. Точки на строках: работы из главы. ${esc(D.meta.time.note)}</p>
+  ${filterChips("tf",LANE_OPTS,"all")}<div class="chips"><label class="small"><input type="checkbox" id="tonly"> только герои главы, без упомянутых</label></div>
   <div class="scroll"><div id="tsvg"></div></div>
   <h3 style="margin-top:24px">События и даты из главы</h3>
   <div class="scroll"><table><thead><tr><th>Год</th><th>Что</th><th>Заметка</th></tr></thead><tbody>${D.events.map(e=>`<tr><td>${e.y}</td><td><span class="dot l-${e.lane}"></span>${esc(e.t)}</td><td>${esc(e.n)}</td></tr>`).join("")}</tbody></table></div>`;
@@ -185,7 +185,7 @@ render.time=function(){
     for(let y=D.meta.time.t0;y<=D.meta.time.y1;y+=D.meta.time.step)s+=`<line x1="${x(y)}" x2="${x(y)}" y1="${top-8}" y2="${H-10}" stroke="var(--line)"/><text x="${x(y)}" y="18" font-size="11" text-anchor="middle" class="g">${y}</text>`;
     D.meta.time.marks.forEach(y=>s+=`<line x1="${x(y)}" x2="${x(y)}" y1="${top-8}" y2="${H-10}" stroke="var(--accent)" stroke-dasharray="4 3"/>`);
     P.forEach((p,i)=>{const cy=top+i*rh+rh/2,col=`var(--${p.lane})`;
-      s+=`<g data-open="${p.id}" tabindex="0" role="button" aria-label="${esc(p.name)} ${esc(p.years)}" style="cursor:pointer"><rect x="0" y="${cy-rh/2}" width="1000" height="${rh}" fill="transparent"/><text x="152" y="${cy+4}" font-size="12" text-anchor="end"${p.ext?' class="g"':""}>${esc(SHORT[p.id]||p.name)}</text><rect x="${x(p.b)}" y="${cy-5}" width="${Math.max(4,x(p.d)-x(p.b))}" height="10" rx="5" fill="${col}" opacity="${p.ext?.45:.9}"/></g>`;
+      s+=`<g data-open="${p.id}" tabindex="0" role="button" aria-label="${esc(p.name)} ${esc(p.years)}" style="cursor:pointer"><rect x="0" y="${cy-rh/2}" width="1000" height="${rh}" fill="transparent"/><text x="152" y="${cy+4}" font-size="12" text-anchor="end"${p.ext?' class="g"':""}>${esc(SHORT[p.id]||p.name)}</text><rect x="${x(p.b)}" y="${cy-(p.ext?4:6)}" width="${Math.max(4,x(p.d)-x(p.b))}" height="${p.ext?8:12}" rx="4" fill="${col}" opacity=".9"/></g>`;
       D.works.filter(w=>w.a===p.id).forEach(w=>{const yr=parseInt((w.year.match(/\d{4}/)||[0])[0]);if(yr)s+=`<circle cx="${x(yr)}" cy="${cy}" r="4.5" fill="var(--surface)" stroke="${col}" stroke-width="2.5" data-open="${w.id}" tabindex="0" role="button" aria-label="${esc(w.title)}" style="cursor:pointer"><title>ил. ${esc(w.ill)}: ${esc(w.title)}, ${esc(w.year)}</title></circle>`;});
     });
     $("#tsvg").innerHTML=s+"</svg>";
