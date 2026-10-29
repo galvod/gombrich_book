@@ -158,3 +158,11 @@ figure.fig img{cursor:pointer}
 .mp-city{margin:26px 0 8px}
 .mp-item{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0;background:var(--surface)}
 .mp-item h4{margin:0 0 2px;font:600 17px var(--f-text)}
+
+.covers{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start;margin:8px 0 10px}
+.cov{margin:0;text-align:center}
+.cov img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.18);background:#e8e6e1;display:block}
+.cov figcaption{font-size:12px;line-height:1.35;color:var(--muted,#6b7280);margin-top:8px}
+.cov.miss:before{content:"обложка не загрузилась";display:flex;align-items:center;justify-content:center;aspect-ratio:2/3;border:1px dashed #b9b6ae;border-radius:6px;font-size:12px;color:#6b7280}
+@media(max-width:640px){.covers{grid-template-columns:repeat(2,1fr)}}
+.cov .nofile{aspect-ratio:2/3;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;font-size:12px}
