@@ -171,16 +171,31 @@ function wishSave(w){try{localStorage.setItem(WKEY,JSON.stringify(w));}catch(e){
 const gmaps=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
 const WISH={};
 const KIND_TXT={"":"Оригинал сейчас здесь",bldg:"Здание находится здесь",print:"Оттиски гравюры хранятся здесь",copy:"Показанная версия здесь"};
-function whereBlock(wid,name,en){
+function whereBlock(wid,name,en,label){
+  label=label||"Где это сейчас";
   const r=D.where&&D.where[wid];if(!r)return"";
   const kind=r[1]||"",note=r[2]||"",v=r[0]?D.venues[r[0]]:null;
-  if(!v)return `<div class="lab">Где это сейчас</div><div class="where"><p><b>Частная коллекция</b></p>${note?`<p class="small muted">${esc(note)}</p>`:""}</div>`;
+  if(!v)return `<div class="lab">${esc(label)}</div><div class="where"><p><b>Частная коллекция</b></p>${note?`<p class="small muted">${esc(note)}</p>`:""}</div>`;
   const id=D.meta.n+":"+wid;
   WISH[id]={id,ch:D.meta.n,name,en:en||"",what:KIND_TXT[kind]||"",v:v.n,ven:v.en,city:v.city,cn:v.cn,lat:v.lat,lng:v.lng,site:v.site,note};
-  return `<div class="lab">Где это сейчас</div><div class="where"><p class="small muted" style="margin:0">${esc(KIND_TXT[kind]||"")}</p><p style="margin:2px 0"><b>${esc(v.n)}</b><span class="names">${esc(v.en)}</span>${esc(v.city)}, ${esc(v.cn)}</p>${note?`<p class="small muted">${esc(note)}</p>`:""}
+  return `<div class="lab">${esc(label)}</div><div class="where"><p class="small muted" style="margin:0">${esc(KIND_TXT[kind]||"")}</p><p style="margin:2px 0"><b>${esc(v.n)}</b><span class="names">${esc(v.en)}</span>${esc(v.city)}, ${esc(v.cn)}</p>${note?`<p class="small muted">${esc(note)}</p>`:""}
   <div class="links"><a class="lk" href="${gmaps(v.en+", "+v.city)}" target="_blank" rel="noopener">Google Карты</a>${v.site?`<a class="lk" href="${esc(v.site)}" target="_blank" rel="noopener">Сайт</a>`:""}</div>
   <button type="button" class="wishbtn" data-wish="${esc(id)}" aria-pressed="false">Хочу увидеть</button>
   <p class="small muted" style="margin-top:6px">По данным на ${WDATE}. Экспозиции меняются, перед поездкой проверь на сайте.</p></div>`;
+}
+function personWhere(id,en){
+  const o=ENT[id].o,k=D.personImg[id],W=D.where||{};let h="";
+  if(k&&D.img[k]){
+    const wk=W[k]?k:Object.entries(D.workImg||{}).filter(([w,i])=>i===k).map(x=>x[0]).find(w=>W[w]);
+    const lab=o.kind?"Где это сейчас":"Где хранится портрет";
+    if(wk)h+=whereBlock(wk,(o.kind?"":"Портрет: ")+o.name,en,lab);
+    else h+=`<div class="lab">${lab}</div><div class="where"><p class="small muted">Место хранения я пока не проверил. Найди его в каталоге музея или в поиске.</p><div class="links"><a class="lk" href="https://www.google.com/search?q=${encodeURIComponent((en||o.name)+" portrait museum collection")}" target="_blank" rel="noopener">Искать в Google</a></div></div>`;
+  }
+  const seen={},rows=[];
+  (o.works||[]).forEach(w=>{const r=W[w];if(!r||!r[0]||seen[r[0]])return;seen[r[0]]=1;const v=D.venues[r[0]];if(!v)return;const e=ENT[w];
+    rows.push(`<li><b>${esc(v.n)}</b> <span class="muted small">${esc(v.city)}, ${esc(v.cn)}</span><br><span class="small">${esc(e?e.o.title:w)}</span><div class="links"><a class="lk" href="${gmaps(v.en+", "+v.city)}" target="_blank" rel="noopener">Google Карты</a>${venueWish(r[0],KIND_TXT[r[1]||""])}</div></li>`);});
+  if(rows.length)h+=`<div class="lab">Работы на карте</div><ul class="small" style="padding-left:18px">${rows.join("")}</ul>`;
+  return h;
 }
 function venueWish(vk,what){
   const v=D.venues[vk],id=D.meta.n+":v:"+vk;
@@ -197,7 +212,7 @@ function sheetBody(id){
   let h=sheetBodyBase(id);const en=D.en[id],k=D.personImg[id]||D.workImg[id];
   const add=(en?`<span class="names">${esc(en)}</span>`:"")+(k?imgFig(k):"");
   h=h.replace("</h2>","</h2>"+add);
-  const lr=linkRow(id),wh=ENT[id]&&(ENT[id].k==="work"||(ENT[id].k==="person"&&ENT[id].o.kind==="place"))?whereBlock(id,ENT[id].o.title||ENT[id].o.name,en):"";
+  const lr=linkRow(id),wh=ENT[id]&&(ENT[id].k==="work"||(ENT[id].k==="person"&&ENT[id].o.kind==="place"))?whereBlock(id,ENT[id].o.title||ENT[id].o.name,en):(ENT[id]&&ENT[id].k==="person"?personWhere(id,en):"");
   if(lr||wh)h=h.replace('<div class="lab" style="margin-top:14px">Мой статус',(lr?'<div class="lab">Посмотреть и прочитать</div>'+lr:"")+wh+'<div class="lab" style="margin-top:14px">Мой статус');
   return h;
 }
