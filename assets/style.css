@@ -166,3 +166,22 @@ figure.fig img{cursor:pointer}
 .cov.miss:before{content:"обложка не загрузилась";display:flex;align-items:center;justify-content:center;aspect-ratio:2/3;border:1px dashed #b9b6ae;border-radius:6px;font-size:12px;color:#6b7280}
 @media(max-width:640px){.covers{grid-template-columns:repeat(2,1fr)}}
 .cov .nofile{aspect-ratio:2/3;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;font-size:12px}
+
+.strip{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 12px;-webkit-overflow-scrolling:touch}
+.sp{flex:0 0 auto;width:min(300px,78vw);scroll-snap-align:start;background:#fff;border:1px solid var(--line,#dcdad4);border-radius:12px;padding:10px;text-align:left;cursor:zoom-in;font:inherit;color:inherit}
+.sp img{width:100%;height:210px;object-fit:cover;border-radius:8px;display:block;background:#e8e6e1}
+.sp span{display:block;font-size:13px;line-height:1.35;margin-top:8px;color:#4b5563}
+.lb{position:fixed;inset:0;z-index:1000;background:rgba(15,15,15,.92);display:flex;align-items:center;justify-content:center;gap:8px;padding:16px}
+.lb[hidden]{display:none}
+.lb figure{margin:0;max-width:min(1100px,86vw);text-align:center;color:#e5e5e5}
+.lb img{max-width:100%;max-height:78vh;border-radius:6px;display:block;margin:0 auto}
+.lb figcaption{font-size:13px;margin-top:10px}.lb figcaption a{color:#bcd3ff}
+.lb button{background:rgba(255,255,255,.14);color:#fff;border:0;border-radius:50%;width:44px;height:44px;font-size:26px;line-height:1;cursor:pointer}
+.lb .lbx{position:absolute;top:14px;right:14px;font-size:28px;background:#fff;color:#111}
+.covph{aspect-ratio:2/3;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.18);background:linear-gradient(160deg,#d9d4c7,#b9b3a3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:14px;text-align:center}
+.covph i{font-style:normal;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#4b4638}
+.covph b{font-family:"Cormorant Garamond",serif;font-size:22px;line-height:1.1;color:#26231b}
+.covph span{font-size:12px;color:#4b4638}
+
+.covers{grid-template-columns:repeat(2,minmax(0,260px));justify-content:start;gap:28px}@media(max-width:640px){.covers{grid-template-columns:repeat(2,1fr)}}
+.cov img{aspect-ratio:auto;height:auto;object-fit:contain}
