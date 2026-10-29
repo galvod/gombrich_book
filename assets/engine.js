@@ -161,6 +161,7 @@ function imageSheetBody(key){
   if(blocks.length)h+=`<div class="lab">Где встречается в главе</div>${chips(blocks)}`;
   const wk=D.where&&D.where[key]?key:works.find(w=>D.where&&D.where[w]);
   if(wk)h+=whereBlock(wk,works.length&&ENT[works[0]]?ENT[works[0]].o.title:m.cap,D.en[wk]);
+  else h+=`<div class="lab">Где это сейчас</div><div class="where"><p class="small muted">Место хранения я пока не проверил. Найди его в каталоге музея или в поиске.</p><div class="links"><a class="lk" href="https://www.google.com/search?q=${encodeURIComponent((D.en[works[0]]||m.cap)+" museum collection")}" target="_blank" rel="noopener">Искать в Google</a></div></div>`;
   return h;
 }
 /* места и «Хочу увидеть»: общий список на все главы лежит в браузере под одним ключом */
