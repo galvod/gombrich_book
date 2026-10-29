@@ -719,15 +719,15 @@ D.wide=[
  ]}
 ];
 D.places=[
- ["Строберри Хилл","Strawberry Hill House, Twickenham","https://www.strawberryhillhouse.org.uk/","Готический дом Уолпола, открыт для посетителей."],
- ["Королевские ботанические сады Кью","Royal Botanic Gardens, Kew","https://www.kew.org/","Рядом с Великой пагодой Чемберса."],
- ["Музей Джона Соуна","Sir John Soane's Museum, London","https://www.soane.org/","Дом-музей архитектора с его коллекцией."],
- ["Монтичелло","Monticello, Virginia","https://www.monticello.org/","Усадьба Джефферсона."],
- ["Национальная галерея","The National Gallery, London","https://www.nationalgallery.org.uk/","«Дидона» Тернера рядом с Клодом, «Повозка с сеном» Констебла."],
- ["Тейт Британия","Tate Britain, London","https://www.tate.org.uk/","Тернер, Констебл, Блейк."],
- ["Музей Прадо","Museo del Prado, Madrid","https://www.museodelprado.es/en","Гойя: портреты, «Третье мая 1808», «чёрные картины»."],
- ["Лувр","Musée du Louvre, Paris","https://www.louvre.fr/en","Давид, Жерико, Делакруа, «Салон 1824» Гейма."],
- ["Музей Метрополитен","The Metropolitan Museum of Art, New York","https://www.metmuseum.org/","Гойя, «Махи на балконе» (ил. 317)."]
+ ["Строберри Хилл","Strawberry Hill House, Twickenham","https://www.strawberryhillhouse.org.uk/","Готический дом Уолпола, открыт для посетителей.","strawberry"],
+ ["Королевские ботанические сады Кью","Royal Botanic Gardens, Kew","https://www.kew.org/","Рядом с Великой пагодой Чемберса.","kew"],
+ ["Музей Джона Соуна","Sir John Soane's Museum, London","https://www.soane.org/","Дом-музей архитектора с его коллекцией.","soane"],
+ ["Монтичелло","Monticello, Virginia","https://www.monticello.org/","Усадьба Джефферсона.","monticello"],
+ ["Национальная галерея","The National Gallery, London","https://www.nationalgallery.org.uk/","«Дидона» Тернера рядом с Клодом, «Повозка с сеном» Констебла.","ngl"],
+ ["Тейт Британия","Tate Britain, London","https://www.tate.org.uk/","Тернер, Констебл, Блейк.","tate"],
+ ["Музей Прадо","Museo del Prado, Madrid","https://www.museodelprado.es/en","Гойя: портреты, «Третье мая 1808», «чёрные картины».","prado"],
+ ["Лувр","Musée du Louvre, Paris","https://www.louvre.fr/en","Давид, Жерико, Делакруа, «Салон 1824» Гейма.","louvre"],
+ ["Музей Метрополитен","The Metropolitan Museum of Art, New York","https://www.metmuseum.org/","Гойя, «Махи на балконе» (ил. 317).","met"]
 ];
 D.ctx=[
  ["1492","Колумб открывает Америку, условное начало «нового времени»."],
@@ -741,6 +741,68 @@ D.ctx=[
  ["1830","Июльская революция во Франции."],
  ["1834","Пожар Вестминстерского дворца, начало неоготической перестройки."]
 ];
+/* Где это сейчас. Проверено в октябре 2026 по справочникам; перед поездкой уточни на сайте. */
+D.venues={
+soane:{n:"Музей Джона Соуна",en:"Sir John Soane's Museum",city:"Лондон",cn:"Великобритания",lat:51.5174,lng:-0.1175,site:"https://www.soane.org/"},
+va:{n:"Музей Виктории и Альберта",en:"Victoria and Albert Museum",city:"Лондон",cn:"Великобритания",lat:51.4966,lng:-0.1722,site:"https://www.vam.ac.uk/"},
+ngl:{n:"Национальная галерея",en:"The National Gallery",city:"Лондон",cn:"Великобритания",lat:51.5089,lng:-0.1283,site:"https://www.nationalgallery.org.uk/"},
+tate:{n:"Тейт Британия",en:"Tate Britain",city:"Лондон",cn:"Великобритания",lat:51.4910,lng:-0.1276,site:"https://www.tate.org.uk/visit/tate-britain"},
+bm:{n:"Британский музей",en:"The British Museum",city:"Лондон",cn:"Великобритания",lat:51.5194,lng:-0.1270,site:"https://www.britishmuseum.org/"},
+louvre:{n:"Лувр",en:"Musée du Louvre",city:"Париж",cn:"Франция",lat:48.8606,lng:2.3376,site:"https://www.louvre.fr/"},
+met:{n:"Метрополитен-музей",en:"The Metropolitan Museum of Art",city:"Нью-Йорк",cn:"США",lat:40.7794,lng:-73.9632,site:"https://www.metmuseum.org/"},
+strawberry:{n:"Строберри Хилл",en:"Strawberry Hill House",city:"Туикенем (Лондон)",cn:"Великобритания",lat:51.4390,lng:-0.3427,site:"https://www.strawberryhillhouse.org.uk/"},
+kew:{n:"Королевские ботанические сады Кью (Великая пагода)",en:"Royal Botanic Gardens, Kew",city:"Лондон",cn:"Великобритания",lat:51.4787,lng:-0.2956,site:"https://www.kew.org/"},
+brighton:{n:"Королевский павильон",en:"Royal Pavilion",city:"Брайтон",cn:"Великобритания",lat:50.8225,lng:-0.1372,site:"https://brightonmuseums.org.uk/royalpavilion/"},
+westminster:{n:"Вестминстерский дворец",en:"Palace of Westminster",city:"Лондон",cn:"Великобритания",lat:51.4995,lng:-0.1248,site:"https://www.parliament.uk/visiting/"},
+pittville:{n:"Питвилль-Памп-Рум",en:"Pittville Pump Room",city:"Челтнем",cn:"Великобритания",lat:51.9087,lng:-2.0668,site:""},
+acropolis:{n:"Парфенон на Акрополе",en:"Parthenon, Acropolis",city:"Афины",cn:"Греция",lat:37.9715,lng:23.7267,site:""},
+monticello:{n:"Монтичелло",en:"Monticello",city:"Шарлоттсвилл (Виргиния)",cn:"США",lat:38.0086,lng:-78.4531,site:"https://www.monticello.org/"},
+capitol:{n:"Капитолий США",en:"United States Capitol",city:"Вашингтон",cn:"США",lat:38.8899,lng:-77.0091,site:"https://www.visitthecapitol.gov/"},
+carrousel:{n:"Триумфальная арка Карусель",en:"Arc de Triomphe du Carrousel",city:"Париж",cn:"Франция",lat:48.8630,lng:2.3322,site:""},
+harvard:{n:"Музеи искусств Гарварда",en:"Harvard Art Museums",city:"Кембридж (Массачусетс)",cn:"США",lat:42.3744,lng:-71.1148,site:"https://harvardartmuseums.org/"},
+mfa:{n:"Музей изящных искусств Бостона",en:"Museum of Fine Arts, Boston",city:"Бостон",cn:"США",lat:42.3394,lng:-71.0940,site:"https://www.mfa.org/"},
+brussels:{n:"Королевские музеи изящных искусств Бельгии",en:"Royal Museums of Fine Arts of Belgium",city:"Брюссель",cn:"Бельгия",lat:50.8423,lng:4.3597,site:"https://www.fine-arts-museum.be/"},
+prado:{n:"Музей Прадо",en:"Museo del Prado",city:"Мадрид",cn:"Испания",lat:40.4138,lng:-3.6921,site:"https://www.museodelprado.es/en"},
+berlin:{n:"Старая национальная галерея",en:"Alte Nationalgalerie",city:"Берлин",cn:"Германия",lat:52.5209,lng:13.3987,site:"https://www.smb.museum/en/museums-institutions/alte-nationalgalerie/"},
+hamburg:{n:"Гамбургский кунстхалле",en:"Hamburger Kunsthalle",city:"Гамбург",cn:"Германия",lat:53.5555,lng:10.0015,site:"https://www.hamburger-kunsthalle.de/"},
+ottawa:{n:"Национальная галерея Канады",en:"National Gallery of Canada",city:"Оттава",cn:"Канада",lat:45.4295,lng:-75.6989,site:"https://www.gallery.ca/"}
+};
+D.where={
+w311:["strawberry", "bldg"],
+w312:["pittville", "copy", "На картинке родственный пример того же стиля. Дорсет-Хауз из книги я проверить не смогла, смотри его адрес отдельно."],
+w313:["acropolis", "copy", "Проект Соуна из книги не построен, на картинке дорический храм, который его вдохновлял. Рисунки самого Соуна хранятся в Музее Соуна."],
+w314:["monticello", "bldg"],
+w315:["mfa", "", "Готовая картина, по моим данным, в Бостоне. На картинке эскиз из Музеев Гарварда (Кембридж, США)."],
+w316:["brussels"],
+w317:["met", "", "В книге ил. 317 из Метрополитена. На картинке версия из частной коллекции."],
+w318:["prado"],
+w319:["prado"],
+w320:["prado", "", "Точное место проверь по каталогу: у «Гиганта» есть и картина, и офорт, и данные об авторстве меняются."],
+w321:["bm", "", "Лист из «Европы» хранится в Британском музее. На картинке другой экземпляр, в залах его выставляют не всегда."],
+w322:["ngl"],
+w323:["tate"],
+w324:["va", "", "Констебл писал много таких этюдов, точное место работы проверь в каталоге. Часть этюдов в V&A."],
+w325:["ngl"],
+w326:["berlin", "", "Место для этого вида Фридриха не подтверждено, проверь по каталогу. Много его работ в Берлине."],
+wsalon:["louvre"],
+e1:["louvre"],
+e2:["prado"],
+e3:["prado"],
+e4:["prado", "print", "Это офорт из серии «Капричос», оттисков много. Место проверь по каталогу."],
+e5:["tate"],
+e6:["ngl"],
+e7:["ngl"],
+e9:["hamburg"],
+e10:["louvre"],
+e11:["louvre"],
+e12:["ottawa", "", "Есть несколько авторских вариантов. Оригинал 1770 года, по моим данным, в Оттаве."],
+e13:["kew", "bldg"],
+e14:["brighton", "bldg"],
+e15:["strawberry", "bldg", "Галерея в доме Уолпола. Интерьер можно осмотреть на экскурсии."],
+e16:["westminster", "bldg"],
+e17:["capitol", "bldg"],
+e18:["carrousel", "bldg"]
+};
 D.blockImg={
  b1:[["w325","Для сравнения с началом главы: «натурализм» голландцев и Констебла."],["w322","«Идеализм» после Клода: пейзаж как мир грёз."]],
  b2:[["w311","Строберри Хилл: готические окна, башенки и зубцы вместо портика и симметрии."],["e15","Галерея внутри Строберри Хилл: готика и в интерьере."],["e13","Великая пагода в Кью: Чемберс изучал китайский стиль."]],

@@ -506,12 +506,12 @@ D.wide=[
  ]}
 ];
 D.places=[
- ["Собор Святого Павла, Лондон","St Paul's Cathedral","https://www.stpauls.co.uk/","Главный храм Рена; можно подняться в купол."],
- ["Чизвик-хаус","Chiswick House","https://www.english-heritage.org.uk/visit/places/chiswick-house-and-gardens/","Вилла лорда Бёрлингтона и сад Кента."],
- ["Стаурхед","Stourhead","https://www.nationaltrust.org.uk/visit/wiltshire/stourhead","Пейзажный парк с храмами и мостом."],
- ["Музей Джона Соуна","Sir John Soane's Museum","https://www.soane.org/","Здесь хранятся оригиналы «Карьеры мота» Хогарта."],
- ["Собрание Уоллеса","The Wallace Collection","https://wallacecollection.org/","Рейнолдс, Гейнсборо, Фрагонар, Ватто."],
- ["Королевская академия художеств","Royal Academy of Arts","https://www.royalacademy.org.uk/","Учреждена в 1768 году, Рейнолдс стал первым президентом."]
+ ["Собор Святого Павла, Лондон","St Paul's Cathedral","https://www.stpauls.co.uk/","Главный храм Рена; можно подняться в купол.","stpauls"],
+ ["Чизвик-хаус","Chiswick House","https://www.english-heritage.org.uk/visit/places/chiswick-house-and-gardens/","Вилла лорда Бёрлингтона и сад Кента.","chiswick"],
+ ["Стаурхед","Stourhead","https://www.nationaltrust.org.uk/visit/wiltshire/stourhead","Пейзажный парк с храмами и мостом.","stourhead"],
+ ["Музей Джона Соуна","Sir John Soane's Museum","https://www.soane.org/","Здесь хранятся оригиналы «Карьеры мота» Хогарта.","soane"],
+ ["Собрание Уоллеса","The Wallace Collection","https://wallacecollection.org/","Рейнолдс, Гейнсборо, Фрагонар, Ватто.","wallace"],
+ ["Королевская академия художеств","Royal Academy of Arts","https://www.royalacademy.org.uk/","Учреждена в 1768 году, Рейнолдс стал первым президентом.","ra"]
 ];
 D.ctx=[
  ["1660","Реставрация Стюартов: Карл II возвращается на английский престол."],
@@ -524,6 +524,84 @@ D.ctx=[
  ["1776","Декларация независимости США."],
  ["1789","Начало Французской революции: конец эпохи, с которой работает глава."]
 ];
+
+/* Где это сейчас. Проверено в октябре 2026 по справочникам, перед поездкой уточни на сайте музея: экспозиции меняются. */
+D.venues={
+stpauls:{n:"Собор Святого Павла",en:"St Paul's Cathedral",city:"Лондон",cn:"Великобритания",lat:51.5138,lng:-0.0984,site:"https://www.stpauls.co.uk/"},
+walbrook:{n:"Церковь Сент-Стивен-Уолбрук",en:"St Stephen Walbrook",city:"Лондон",cn:"Великобритания",lat:51.5128,lng:-0.0907,site:"https://www.ststephenwalbrook.net/"},
+monument:{n:"Монумент Великому лондонскому пожару",en:"The Monument to the Great Fire of London",city:"Лондон",cn:"Великобритания",lat:51.5101,lng:-0.0860,site:"https://www.themonument.org.uk/"},
+chiswick:{n:"Чизвик-хаус",en:"Chiswick House",city:"Лондон",cn:"Великобритания",lat:51.4884,lng:-0.2670,site:"https://www.english-heritage.org.uk/visit/places/chiswick-house-and-gardens/"},
+stourhead:{n:"Стаурхед",en:"Stourhead",city:"Уилтшир",cn:"Великобритания",lat:51.1070,lng:-2.3190,site:"https://www.nationaltrust.org.uk/visit/wiltshire/stourhead"},
+blenheim:{n:"Бленхеймский дворец",en:"Blenheim Palace",city:"Вудсток",cn:"Великобритания",lat:51.8415,lng:-1.3610,site:"https://www.blenheimpalace.com/"},
+soane:{n:"Музей Джона Соуна",en:"Sir John Soane's Museum",city:"Лондон",cn:"Великобритания",lat:51.5174,lng:-0.1175,site:"https://www.soane.org/"},
+wallace:{n:"Собрание Уоллеса",en:"The Wallace Collection",city:"Лондон",cn:"Великобритания",lat:51.5167,lng:-0.1531,site:"https://wallacecollection.org/"},
+va:{n:"Музей Виктории и Альберта",en:"Victoria and Albert Museum",city:"Лондон",cn:"Великобритания",lat:51.4966,lng:-0.1722,site:"https://www.vam.ac.uk/"},
+ngl:{n:"Национальная галерея",en:"The National Gallery",city:"Лондон",cn:"Великобритания",lat:51.5089,lng:-0.1283,site:"https://www.nationalgallery.org.uk/"},
+tate:{n:"Тейт Британия",en:"Tate Britain",city:"Лондон",cn:"Великобритания",lat:51.4910,lng:-0.1276,site:"https://www.tate.org.uk/visit/tate-britain"},
+bm:{n:"Британский музей",en:"The British Museum",city:"Лондон",cn:"Великобритания",lat:51.5194,lng:-0.1270,site:"https://www.britishmuseum.org/"},
+ra:{n:"Королевская академия художеств",en:"Royal Academy of Arts",city:"Лондон",cn:"Великобритания",lat:51.5090,lng:-0.1403,site:"https://www.royalacademy.org.uk/"},
+windsor:{n:"Виндзорский замок (Королевская коллекция)",en:"Windsor Castle (Royal Collection)",city:"Виндзор",cn:"Великобритания",lat:51.4839,lng:-0.6044,site:"https://www.rct.uk/visit/windsor-castle"},
+huntington:{n:"Библиотека и музей Хантингтона",en:"The Huntington Library, Art Museum and Botanical Gardens",city:"Сан-Марино (Калифорния)",cn:"США",lat:34.1291,lng:-118.1146,site:"https://www.huntington.org/"},
+nga:{n:"Национальная галерея искусства",en:"National Gallery of Art",city:"Вашингтон",cn:"США",lat:38.8913,lng:-77.0199,site:"https://www.nga.gov/"},
+met:{n:"Метрополитен-музей",en:"The Metropolitan Museum of Art",city:"Нью-Йорк",cn:"США",lat:40.7794,lng:-73.9632,site:"https://www.metmuseum.org/"},
+aic:{n:"Художественный институт Чикаго",en:"Art Institute of Chicago",city:"Чикаго",cn:"США",lat:41.8796,lng:-87.6237,site:"https://www.artic.edu/"},
+louvre:{n:"Лувр",en:"Musée du Louvre",city:"Париж",cn:"Франция",lat:48.8606,lng:2.3376,site:"https://www.louvre.fr/"},
+versailles:{n:"Версальский дворец",en:"Château de Versailles",city:"Версаль",cn:"Франция",lat:48.8049,lng:2.1204,site:"https://www.chateauversailles.fr/"},
+besancon:{n:"Музей изящных искусств и археологии",en:"Musée des Beaux-Arts et d'Archéologie de Besançon",city:"Безансон",cn:"Франция",lat:47.2392,lng:6.0243,site:"https://www.mbaa.besancon.fr/"},
+rijks:{n:"Рейксмузеум",en:"Rijksmuseum",city:"Амстердам",cn:"Нидерланды",lat:52.3600,lng:4.8852,site:"https://www.rijksmuseum.nl/"},
+pantheon:{n:"Пантеон",en:"Pantheon",city:"Рим",cn:"Италия",lat:41.8986,lng:12.4769,site:""},
+carlino:{n:"Сан-Карло алле Кватро Фонтане",en:"San Carlo alle Quattro Fontane",city:"Рим",cn:"Италия",lat:41.9035,lng:12.4903,site:""},
+vittoria:{n:"Санта-Мария делла Виттория",en:"Santa Maria della Vittoria",city:"Рим",cn:"Италия",lat:41.9040,lng:12.4934,site:""},
+vatican:{n:"Музеи Ватикана (Станцы Рафаэля)",en:"Vatican Museums, Raphael Rooms",city:"Ватикан",cn:"Ватикан",lat:41.9065,lng:12.4536,site:"https://www.museivaticani.va/"},
+doria:{n:"Галерея Дориа-Памфили",en:"Galleria Doria Pamphilj",city:"Рим",cn:"Италия",lat:41.8975,lng:12.4800,site:"https://www.doriapamphilj.it/"},
+capodimonte:{n:"Музей и лес Каподимонте",en:"Museo e Real Bosco di Capodimonte",city:"Неаполь",cn:"Италия",lat:40.8725,lng:14.2503,site:"https://capodimonte.cultura.gov.it/"},
+rotonda:{n:"Вилла Ротонда (Вилла Капра)",en:"Villa Capra «La Rotonda»",city:"Виченца",cn:"Италия",lat:45.5311,lng:11.5518,site:"https://www.villalarotonda.it/"}
+};
+/* id (работа или ключ картинки) → [место, вид, примечание]. Вид: пусто = оригинал здесь; "copy" = показана копия; "priv" = частная коллекция; "print" = тираж гравюр; "bldg" = здание */
+D.where={
+w299:["stpauls","bldg"],
+w300:["walbrook","bldg"],
+w301:["chiswick","bldg"],
+w302:["stourhead","bldg"],
+w303:["soane","","В книге ил. 303 — сцена 8 «В Бедламе». Вся серия из восьми картин висит в Музее Соуна."],
+w304:["", "priv","Оригинал, по книге, в частной коллекции, поэтому смотреть его негде. На картинке в справочнике копия по Рейнолдсу. Другие работы Рейнолдса можно увидеть в Национальной галерее и Тейт Британия."],
+w305:["wallace"],
+w306:["wallace"],
+w307:["va","","Место взято из подписи в книге. Перед поездкой проверь в онлайн-каталоге музея, выставлена ли работа."],
+w308:["louvre"],
+w309:["va","","Место взято из подписи в книге. У Гудона несколько бюстов Вольтера, проверь в каталоге, какой выставлен."],
+w310:["besancon","","В книге другой лист Фрагонара из виллы д'Эсте; на картинке справочника родственный рисунок «Кипарисовая аллея». Серия рисунков хранится в Безансоне, рисунки выставляют не всегда."],
+wz:["windsor","","Картина принадлежит Королевской коллекции (Виндзор). Выставляется не всегда, проверь на сайте."],
+x1:["ngl"],
+x2:["bm","print","Это гравюра, она существует во многих оттисках. Один из них, например, в Британском музее; в зале её могут не показывать, смотрят по записи."],
+n15:["bm","print","Это гравюра, она существует во многих оттисках. Один из них, например, в Британском музее; в зале её могут не показывать, смотрят по записи."],
+x3:["met","print","Гравюра хранится в отделе графики Метрополитена. Обычно её показывают по запросу в читальном зале, а не в экспозиции."],
+x5:["met","print","Гравюра хранится в отделе графики Метрополитена. Обычно её показывают по запросу в читальном зале, а не в экспозиции."],
+x4:["soane"],
+x6:["tate"],
+x7:["huntington"],
+x8:["ngl"],
+x9:["nga"],
+x10:["wallace"],
+x11:["louvre"],
+x12:["rotonda","bldg"],
+x13:["blenheim","bldg"],
+x14:["ngl"],
+n1:["pantheon","bldg"],
+n2:["carlino","bldg"],
+n3:["versailles","bldg"],
+n4:["monument","bldg"],
+n5:["stpauls","bldg"],
+n6:["louvre"],
+n8:["aic"],
+n9:["vatican"],
+n10:["capodimonte"],
+n11:["doria"],
+n12:["wallace"],
+n13:["rijks"],
+n14:["vittoria","bldg"]
+};
+
 /* Дополнительные изображения для разделов главы и подписи «что здесь смотреть» */
 Object.assign(D.img,{
  n1:{f:"ch23_ref_rome_pantheon_portico.jpg",c:"Pantheon, Roma, LZ, IT.jpg",by:"Warren LeMay",lic:"CC0",cap:"Пантеон в Риме"},

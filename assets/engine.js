@@ -11,6 +11,9 @@ D.terms.forEach(t=>ENT[t.id]={k:"term",o:t});
 D.blocks.forEach((b,i)=>{b.id="b"+(i+1);ENT[b.id]={k:"block",o:b};});
 const STAT=[["1","Прочитала"],["2","Повторила"],["3","Слабо помню"]];
 const SHORT=D.short;
+const KINDL={place:"Место",culture:"Народ или культура",deity:"Божество"};
+const kindLab=o=>KINDL[o.kind]||(o.ext?"Только упомянут":"Герой главы");
+const fmtY=y=>y<0?String(-y).replace(/\B(?=(\d{3})+(?!\d))/g,"\u00a0")+" до н. э.":String(y);
 function title(id){const e=ENT[id];if(!e)return id;return e.o.name||e.o.title||e.o.t;}
 function lane(id){const e=ENT[id];return e&&e.o.lane?"l-"+e.o.lane:"";}
 function chip(id){return `<button class="chip e ${lane(id)}" data-open="${id}"><span class="dot ${lane(id)}"></span>${esc(SHORT[id]||title(id))}</button>`;}
@@ -27,7 +30,7 @@ function linksOf(id){const out=[];D.edges.forEach(([a,b,t,n])=>{if(a===id)out.pu
 function sheetBodyBase(id){
   const e=ENT[id];if(!e)return"";const o=e.o;let h="";
   if(e.k==="person"){
-    h+=`<div class="lab">${o.kind==="place"?"Место":(o.ext?"Только упомянут":"Герой главы")} · <span class="dot ${lane(id)}"></span>${LANES[o.lane]}</div><h2>${esc(o.name)}</h2><p class="muted">${esc(o.years)} · ${esc(o.role)}</p>`;
+    h+=`<div class="lab">${kindLab(o)} · <span class="dot ${lane(id)}"></span>${LANES[o.lane]}</div><h2>${esc(o.name)}</h2><p class="muted">${esc(o.years)} · ${esc(o.role)}</p>`;
     if(o.ext)h+=`<p class="ext">Вне главы: даты и роль из справочников, в тексте только упоминание.</p>`;
     h+=`<p>${esc(o.sum)}</p><p class="small muted">В книге: ${esc(o.ref)}</p>`;
     if(o.note)h+=`<div class="note">${esc(o.note)}</div>`;
@@ -53,7 +56,7 @@ let lastFocus=null;
 function openSheet(id){
   const s=$("#sheet");lastFocus=document.activeElement;
   s.innerHTML=`<button class="x" id="sx" aria-label="Закрыть">×</button>`+sheetBody(id);
-  s.classList.add("on");s.setAttribute("aria-hidden","false");$("#shade").hidden=false;refreshStatus();s.scrollTop=0;$("#sx").focus();
+  s.classList.add("on");s.setAttribute("aria-hidden","false");$("#shade").hidden=false;refreshStatus();refreshWish();s.scrollTop=0;$("#sx").focus();
 }
 function closeSheet(){$("#sheet").classList.remove("on");$("#sheet").setAttribute("aria-hidden","true");$("#shade").hidden=true;if(lastFocus&&lastFocus.focus)lastFocus.focus();if(cur==="notes")render.notes();}
 function openLightbox(img){
@@ -67,6 +70,7 @@ function openLightbox(img){
 function closeLightbox(){const lb=$("#lb");if(lb)lb.classList.remove("on");}
 document.addEventListener("click",e=>{
   if(e.target.closest("#lb")){if(!e.target.closest("a"))closeLightbox();return;}
+  const wb=e.target.closest("[data-wish]");if(wb){const w=wishLoad(),i=wb.dataset.wish;if(w[i])delete w[i];else if(WISH[i])w[i]=WISH[i];wishSave(w);refreshWish();return;}
   const zb=e.target.closest("[data-zoom]");if(zb){const im=$("#sheet figure.fig img");if(im)openLightbox(im);return;}
   const fi=e.target.closest("figure.fig img");
   if(fi&&!fi.closest("[data-open]")){if(fi.closest("#sheet"))openLightbox(fi);else if(fi.dataset.k)openSheet("img:"+fi.dataset.k);else openLightbox(fi);return;}
@@ -108,11 +112,12 @@ $("#q").addEventListener("input",e=>{
 function portraitThumb(id){
   const k=D.personImg[id],m=k&&D.img[k];
   if(m)return `<img class="pth" loading="lazy" src="images/ch${D.meta.n}/${esc(m.f)}" data-c="${esc(m.c)}" data-w="300" data-s="0" alt="${esc(m.cap)}">`;
+  if(ENT[id]&&ENT[id].o.kind)return "";
   return `<span class="pth none" title="${esc((D.noPortrait&&D.noPortrait[id])||"")}">нет портрета</span>`;
 }
 function cardFor(id){
   const e=ENT[id],o=e.o;
-  if(e.k==="person")return `<button class="card btn pcard" data-open="${id}">${portraitThumb(id)}<h3>${esc(o.name)}</h3>${D.en[o.id]?`<span class="names">${esc(D.en[o.id])}</span>`:""}<span class="small muted yrs">${esc(o.years)}</span><span class="small muted">${esc(o.role)}</span><span class="lab pst"><span class="dot ${lane(id)}"></span>${o.kind==="place"?"Место":(o.ext?"Только упомянут":"Герой главы")}</span></button>`;
+  if(e.k==="person")return `<button class="card btn pcard" data-open="${id}">${portraitThumb(id)}<h3>${esc(o.name)}</h3>${D.en[o.id]?`<span class="names">${esc(D.en[o.id])}</span>`:""}<span class="small muted yrs">${esc(o.years)}</span><span class="small muted">${esc(o.role)}</span><span class="lab pst"><span class="dot ${lane(id)}"></span>${kindLab(o)}</span></button>`;
   if(e.k==="work")return `<button class="card btn" data-open="${id}"><span class="lab"><span class="dot ${lane(id)}"></span>ил. ${esc(o.ill)} · ${esc(o.year)}</span>${D.workImg[id]?imgFig(D.workImg[id]).replace(/<figcaption>.*<\/figcaption>/,""):""}<h3>${esc(o.title)}</h3>${D.en[o.id]?`<span class="names">${esc(D.en[o.id])}</span>`:""}<span class="small muted">${esc(o.a?title(o.a):(o.authorText||""))}</span></button>`;
   if(e.k==="term")return `<button class="card btn" data-open="${id}"><span class="lab">Термин</span><h3>${esc(o.name)}</h3><span class="small muted">${esc(o.def)}</span></button>`;
   return `<button class="card btn" data-open="${id}"><span class="lab">Раздел главы</span><h3>${esc(o.t)}</h3><span class="small muted">${esc(o.s)}</span></button>`;
@@ -154,15 +159,45 @@ function imageSheetBody(key){
   if(works.length)h+=`<div class="lab">Работа из книги</div>${chips(works)}`;
   if(ppl.length)h+=`<div class="lab">Автор</div>${chips(ppl)}`;
   if(blocks.length)h+=`<div class="lab">Где встречается в главе</div>${chips(blocks)}`;
+  const wk=D.where&&D.where[key]?key:works.find(w=>D.where&&D.where[w]);
+  if(wk)h+=whereBlock(wk,works.length&&ENT[works[0]]?ENT[works[0]].o.title:m.cap,D.en[wk]);
   return h;
+}
+/* места и «Хочу увидеть»: общий список на все главы лежит в браузере под одним ключом */
+const WKEY="gombrich-wishlist",WDATE="октябрь 2026";
+function wishLoad(){try{return JSON.parse(localStorage.getItem(WKEY))||{};}catch(e){return{};}}
+function wishSave(w){try{localStorage.setItem(WKEY,JSON.stringify(w));}catch(e){}}
+const gmaps=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
+const WISH={};
+const KIND_TXT={"":"Оригинал сейчас здесь",bldg:"Здание находится здесь",print:"Оттиски гравюры хранятся здесь",copy:"Показанная версия здесь"};
+function whereBlock(wid,name,en){
+  const r=D.where&&D.where[wid];if(!r)return"";
+  const kind=r[1]||"",note=r[2]||"",v=r[0]?D.venues[r[0]]:null;
+  if(!v)return `<div class="lab">Где это сейчас</div><div class="where"><p><b>Частная коллекция</b></p>${note?`<p class="small muted">${esc(note)}</p>`:""}</div>`;
+  const id=D.meta.n+":"+wid;
+  WISH[id]={id,ch:D.meta.n,name,en:en||"",what:KIND_TXT[kind]||"",v:v.n,ven:v.en,city:v.city,cn:v.cn,lat:v.lat,lng:v.lng,site:v.site,note};
+  return `<div class="lab">Где это сейчас</div><div class="where"><p class="small muted" style="margin:0">${esc(KIND_TXT[kind]||"")}</p><p style="margin:2px 0"><b>${esc(v.n)}</b><span class="names">${esc(v.en)}</span>${esc(v.city)}, ${esc(v.cn)}</p>${note?`<p class="small muted">${esc(note)}</p>`:""}
+  <div class="links"><a class="lk" href="${gmaps(v.en+", "+v.city)}" target="_blank" rel="noopener">Google Карты</a>${v.site?`<a class="lk" href="${esc(v.site)}" target="_blank" rel="noopener">Сайт</a>`:""}</div>
+  <button type="button" class="wishbtn" data-wish="${esc(id)}" aria-pressed="false">Хочу увидеть</button>
+  <p class="small muted" style="margin-top:6px">По данным на ${WDATE}. Экспозиции меняются, перед поездкой проверь на сайте.</p></div>`;
+}
+function venueWish(vk,what){
+  const v=D.venues[vk],id=D.meta.n+":v:"+vk;
+  WISH[id]={id,ch:D.meta.n,name:v.n,en:v.en,what:what||"Место для поездки",v:v.n,ven:v.en,city:v.city,cn:v.cn,lat:v.lat,lng:v.lng,site:v.site,note:""};
+  return `<button type="button" class="wishbtn" data-wish="${esc(id)}" aria-pressed="false">Хочу увидеть</button>`;
+}
+function refreshWish(){
+  const w=wishLoad(),n=Object.keys(w).length;
+  $$("[data-wish]").forEach(b=>{const on=!!w[b.dataset.wish];b.setAttribute("aria-pressed",on);b.textContent=on?"✓ Хочу увидеть":"Хочу увидеть";b.classList.toggle("on",on);});
+  $$(".mylink").forEach(a=>a.textContent="Мои места"+(n?" ("+n+")":""));
 }
 function sheetBody(id){
   if(id.startsWith("img:"))return imageSheetBody(id.slice(4));
   let h=sheetBodyBase(id);const en=D.en[id],k=D.personImg[id]||D.workImg[id];
   const add=(en?`<span class="names">${esc(en)}</span>`:"")+(k?imgFig(k):"");
   h=h.replace("</h2>","</h2>"+add);
-  const lr=linkRow(id);
-  if(lr)h=h.replace('<div class="lab" style="margin-top:14px">Мой статус','<div class="lab">Посмотреть и прочитать</div>'+lr+'<div class="lab" style="margin-top:14px">Мой статус');
+  const lr=linkRow(id),wh=ENT[id]&&(ENT[id].k==="work"||(ENT[id].k==="person"&&ENT[id].o.kind==="place"))?whereBlock(id,ENT[id].o.title||ENT[id].o.name,en):"";
+  if(lr||wh)h=h.replace('<div class="lab" style="margin-top:14px">Мой статус',(lr?'<div class="lab">Посмотреть и прочитать</div>'+lr:"")+wh+'<div class="lab" style="margin-top:14px">Мой статус');
   return h;
 }
 render.wide=function(){
@@ -170,8 +205,9 @@ render.wide=function(){
   v.innerHTML=`<h2>Шире книги</h2><p class="lead">${esc(D.meta.wideLead)}</p>
   <div class="chips">${D.wide.map(s=>`<a class="chip" href="#wide-${s.id}" data-jump="wide-${s.id}">${esc(s.t.split(":")[0])}</a>`).join("")}<a class="chip" href="#wide-places" data-jump="wide-places">Куда поехать</a><a class="chip" href="#wide-ctx" data-jump="wide-ctx">Что вокруг</a></div>`+
   D.wide.map(s=>`<section class="wide-sec" id="wide-${s.id}"><h3>${esc(s.t)}</h3><p class="muted">${esc(s.lead)}</p><div class="gal">${s.items.map(it=>`<div class="card">${imgFig(it.img)}<b>${esc(it.t)}</b><span class="names">${esc(it.en)}</span><p class="small" style="margin:6px 0">${esc(it.n)}</p><div class="links">${it.wp[1]?`<a class="lk" href="${WP("ru",it.wp[1])}" target="_blank" rel="noopener">Википедия RU</a>`:""}<a class="lk" href="${WP("en",it.wp[0])}" target="_blank" rel="noopener">Wikipedia EN</a><a class="lk" href="${GAC(it.en)}" target="_blank" rel="noopener">Google Arts &amp; Culture</a>${(it.extra||[]).map(([t,u])=>`<a class="lk" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join("")}</div></div>`).join("")}</div></section>`).join("")+
-  `<section class="wide-sec" id="wide-places"><h3>Куда поехать и где смотреть оригиналы</h3><div class="scroll"><table><thead><tr><th>Место</th><th>Что там</th><th>Сайт</th></tr></thead><tbody>${D.places.map(p=>`<tr><td>${esc(p[0])}<span class="names">${esc(p[1])}</span></td><td>${esc(p[3])}</td><td><div class="links" style="margin:0"><a class="lk" href="${esc(p[2])}" target="_blank" rel="noopener">Сайт</a></div></td></tr>`).join("")}</tbody></table></div></section>
+  `<section class="wide-sec" id="wide-places"><h3>Куда поехать и где смотреть оригиналы</h3><div class="scroll"><table><thead><tr><th>Место</th><th>Что там</th><th>Сайт</th><th></th></tr></thead><tbody>${D.places.map(p=>`<tr><td>${esc(p[0])}<span class="names">${esc(p[1])}</span></td><td>${esc(p[3])}</td><td><div class="links" style="margin:0"><a class="lk" href="${esc(p[2])}" target="_blank" rel="noopener">Сайт</a></div></td><td>${p[4]?venueWish(p[4]):""}</td></tr>`).join("")}</tbody></table></div></section>
   <section class="wide-sec" id="wide-ctx"><h3>Что происходило вокруг</h3><p class="muted">Даты из справочников, в главе их нет.</p><div class="scroll"><table class="ctx"><tbody>${D.ctx.map(r=>`<tr><td>${r[0]}</td><td>${esc(r[1])}</td></tr>`).join("")}</tbody></table></div></section>`;
+  refreshWish();
   $$("[data-jump]",v).forEach(a=>a.addEventListener("click",e=>{e.preventDefault();const t=document.getElementById(a.dataset.jump);if(t)t.scrollIntoView({behavior:"smooth",block:"start"});}));
 };
 render.credits=function(){
@@ -199,23 +235,23 @@ render.map=function(){
 
 render.time=function(){
   const v=$("#v-time");
-  v.innerHTML=`<h2>Лента времени</h2><p class="muted">Жизнь героев главы и тех, кто только упомянут. Цвет показывает страну, толстая полоса — герой главы, тонкая — только упомянут. Точки на строках: работы из главы. ${esc(D.meta.time.note)}</p>
+  v.innerHTML=`<h2>Лента времени</h2><p class="muted">${esc(D.meta.time.lead||"Жизнь героев главы и тех, кто только упомянут. Цвет показывает страну, толстая полоса — герой главы, тонкая — только упомянут.")} Точки на строках: работы из главы. ${esc(D.meta.time.note)}</p>
   ${filterChips("tf",LANE_OPTS,"all")}<div class="chips"><label class="small"><input type="checkbox" id="tonly"> только герои главы, без упомянутых</label></div>
   <div class="scroll"><div id="tsvg"></div></div>
   <h3 style="margin-top:24px">События и даты из главы</h3>
   <p class="muted small">Знак ┆ рядом с годом означает, что эта дата отмечена пунктирной линией на графике.</p>
-  <div class="scroll"><table><thead><tr><th>Год</th><th>Что</th><th>Заметка</th></tr></thead><tbody>${D.events.map(e=>`<tr><td>${e.y}${(D.meta.time.marks||[]).includes(e.y)?` <span class="small" style="color:var(--accent)" title="Эта дата отмечена пунктиром на графике">┆</span>`:""}</td><td><span class="dot l-${e.lane}"></span>${esc(e.t)}</td><td>${esc(e.n)}</td></tr>`).join("")}</tbody></table></div>`;
+  <div class="scroll"><table><thead><tr><th>Год</th><th>Что</th><th>Заметка</th></tr></thead><tbody>${D.events.map(e=>`<tr><td>${fmtY(e.y)}${(D.meta.time.marks||[]).includes(e.y)?` <span class="small" style="color:var(--accent)" title="Эта дата отмечена пунктиром на графике">┆</span>`:""}</td><td><span class="dot l-${e.lane}"></span>${esc(e.t)}</td><td>${esc(e.n)}</td></tr>`).join("")}</tbody></table></div>`;
   let fl="all";const draw=()=>{
     const only=$("#tonly").checked;
-    const P=D.people.filter(p=>p.kind!=="place"&&(fl==="all"||p.lane===fl)&&(!only||!p.ext)).sort((a,b)=>a.b-b.b);
+    const P=D.people.filter(p=>p.kind!=="place"&&p.kind!=="deity"&&(fl==="all"||p.lane===fl)&&(!only||!p.ext)).sort((a,b)=>a.b-b.b);
     const X0=160,X1=980,Y0=D.meta.time.y0,Y1=D.meta.time.y1,rh=24,top=54,H=top+P.length*rh+16;
     const x=y=>X0+(Math.min(Math.max(y,Y0),Y1)-Y0)/(Y1-Y0)*(X1-X0);
     let s=`<svg viewBox="0 0 1000 ${H}" width="100%" style="min-width:820px" role="img" aria-label="Годы жизни героев главы">`;
-    for(let y=D.meta.time.t0;y<=D.meta.time.y1;y+=D.meta.time.step)s+=`<line x1="${x(y)}" x2="${x(y)}" y1="${top-8}" y2="${H-10}" stroke="var(--line)"/><text x="${x(y)}" y="40" font-size="11" text-anchor="middle" class="g">${y}</text>`;
+    for(let y=D.meta.time.t0;y<=D.meta.time.y1;y+=D.meta.time.step)s+=`<line x1="${x(y)}" x2="${x(y)}" y1="${top-8}" y2="${H-10}" stroke="var(--line)"/><text x="${x(y)}" y="40" font-size="11" text-anchor="middle" class="g">${fmtY(y)}</text>`;
     D.meta.time.marks.forEach((y,mi,arr)=>{const lb=(D.meta.time.markLabels||{})[y]||String(y),xx=x(y),nx=arr[mi+1]!=null?x(arr[mi+1]):null,end=xx>700||(nx!=null&&nx-xx<300);s+=`<line x1="${xx}" x2="${xx}" y1="8" y2="${H-10}" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 3"/><text x="${xx+(end?-5:5)}" y="18" font-size="11.5" font-weight="700" text-anchor="${end?"end":"start"}" fill="var(--accent)">${esc(lb)}</text>`;});
     P.forEach((p,i)=>{const cy=top+i*rh+rh/2,col=`var(--${p.lane})`;
       s+=`<g data-open="${p.id}" tabindex="0" role="button" aria-label="${esc(p.name)} ${esc(p.years)}" style="cursor:pointer"><rect x="0" y="${cy-rh/2}" width="1000" height="${rh}" fill="transparent"/><text x="152" y="${cy+4}" font-size="12" text-anchor="end"${p.ext?' class="g"':""}>${esc(SHORT[p.id]||p.name)}</text><rect x="${x(p.b)}" y="${cy-(p.ext?4:6)}" width="${Math.max(4,x(p.d)-x(p.b))}" height="${p.ext?8:12}" rx="4" fill="${col}" opacity=".9"/></g>`;
-      D.works.filter(w=>w.a===p.id).forEach(w=>{const yr=parseInt((w.year.match(/\d{4}/)||[0])[0]);if(yr)s+=`<circle cx="${x(yr)}" cy="${cy}" r="4.5" fill="var(--surface)" stroke="${col}" stroke-width="2.5" data-open="${w.id}" tabindex="0" role="button" aria-label="${esc(w.title)}" style="cursor:pointer"><title>ил. ${esc(w.ill)}: ${esc(w.title)}, ${esc(w.year)}</title></circle>`;});
+      D.works.filter(w=>w.a===p.id).forEach(w=>{const yr=w.yr!=null?w.yr:parseInt((w.year.match(/\d{4}/)||[0])[0]);if(yr)s+=`<circle cx="${x(yr)}" cy="${cy}" r="4.5" fill="var(--surface)" stroke="${col}" stroke-width="2.5" data-open="${w.id}" tabindex="0" role="button" aria-label="${esc(w.title)}" style="cursor:pointer"><title>ил. ${esc(w.ill)}: ${esc(w.title)}, ${esc(w.year)}</title></circle>`;});
     });
     $("#tsvg").innerHTML=s+"</svg>";
   };
@@ -224,7 +260,7 @@ render.time=function(){
 
 render.people=function(){
   const v=$("#v-people");
-  v.innerHTML=`<h2>Люди</h2><p class="muted">Герои главы и те, на кого она ссылается. Подпись «Только упомянут» значит, что человека нет в основном сюжете главы. Цвет точки показывает страну или школу, как на кнопках ниже.</p>${filterChips("pf",LANE_OPTS,"all")}<div class="chips"><label class="small"><input type="checkbox" id="ponly"> только герои главы</label></div><div class="grid" id="pg"></div>`;
+  v.innerHTML=`<h2>${esc(D.meta.peopleTitle||"Люди")}</h2><p class="muted">${esc(D.meta.peopleLead||"Герои главы и те, на кого она ссылается. Подпись «Только упомянут» значит, что человека нет в основном сюжете главы. Цвет точки показывает страну или школу, как на кнопках ниже.")}</p>${filterChips("pf",LANE_OPTS,"all")}<div class="chips"><label class="small"><input type="checkbox" id="ponly"> только герои главы</label></div><div class="grid" id="pg"></div>`;
   let fl="all";const draw=()=>{const only=$("#ponly").checked;$("#pg").innerHTML=D.people.filter(p=>(fl==="all"||p.lane===fl)&&(!only||!p.ext)).map(p=>cardFor(p.id)).join("");};
   bindFilter("pf",f=>{fl=f;draw();});$("#ponly").addEventListener("change",draw);draw();
 };
@@ -268,7 +304,7 @@ function drawGraph(){
   const {pos,laneInfo,H,xs}=layoutGraph();
   let s=`<svg viewBox="0 0 1000 ${H}" width="100%" style="min-width:860px" role="img" aria-label="Граф связей между героями главы">`;
   Object.keys(LANES).forEach((L,i)=>{const li=laneInfo[L];s+=`<rect x="0" y="${li.y}" width="1000" height="${li.h}" fill="var(--${L})" opacity="${i%2?.05:.09}"/><text x="8" y="${li.y+15}" font-size="11" font-weight="700" style="letter-spacing:.06em;text-transform:uppercase" fill="var(--${L})">${LANE_SHORT[L]}</text>`;});
-  for(let yr=D.meta.graph.t0;yr<=D.meta.graph.y1;yr+=D.meta.graph.step)s+=`<line x1="${xs(yr)}" x2="${xs(yr)}" y1="24" y2="${H-6}" stroke="var(--line)" stroke-dasharray="2 4"/><text x="${xs(yr)}" y="14" font-size="11" text-anchor="middle" class="g">${yr}</text>`;
+  for(let yr=D.meta.graph.t0;yr<=D.meta.graph.y1;yr+=D.meta.graph.step)s+=`<line x1="${xs(yr)}" x2="${xs(yr)}" y1="24" y2="${H-6}" stroke="var(--line)" stroke-dasharray="2 4"/><text x="${xs(yr)}" y="14" font-size="11" text-anchor="middle" class="g">${fmtY(yr)}</text>`;
   const rel=(a,b)=>!gsel||a===gsel||b===gsel;
   D.edges.forEach(([a,b,t])=>{
     if(gtype!=="all"&&gtype!==t)return;const A=pos[a],B=pos[b];if(!A||!B)return;
@@ -348,3 +384,4 @@ render.notes=function(){
 buildTabs();
 (function init(){const k=location.hash.slice(1);show(TABS.some(t=>t[0]===k)?k:"map");})();
 document.getElementById("q").placeholder=D.meta.search;
+refreshWish();
