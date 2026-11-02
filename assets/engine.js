@@ -13,7 +13,7 @@ const STAT=[["1","Прочитала"],["2","Повторила"],["3","Слаб
 const SHORT=D.short;
 const KINDL={place:"Место",culture:"Народ или культура",deity:"Божество"};
 const kindLab=o=>KINDL[o.kind]||(o.ext?"Только упомянут":"Герой главы");
-const fmtY=y=>y<0?String(-y).replace(/\B(?=(\d{3})+(?!\d))/g,"\u00a0")+" до н. э.":String(y);
+const fmtY=y=>y<0?String(-y).replace(/\B(?=(\d{3})+(?!\d))/g,"\u00a0")+" до н. э.":(y>0&&y<1000?y+" н. э.":String(y));
 function title(id){const e=ENT[id];if(!e)return id;return e.o.name||e.o.title||e.o.t;}
 function lane(id){const e=ENT[id];return e&&e.o.lane?"l-"+e.o.lane:"";}
 function chip(id){return `<button class="chip e ${lane(id)}" data-open="${id}"><span class="dot ${lane(id)}"></span>${esc(SHORT[id]||title(id))}</button>`;}
