@@ -11,7 +11,7 @@ D.terms.forEach(t=>ENT[t.id]={k:"term",o:t});
 D.blocks.forEach((b,i)=>{b.id="b"+(i+1);ENT[b.id]={k:"block",o:b};});
 const STAT=[["1","Прочитала"],["2","Повторила"],["3","Слабо помню"]];
 const SHORT=D.short;
-const KINDL={place:"Место",culture:"Народ или культура",deity:"Божество"};
+const KINDL={place:"Место",culture:"Народ или культура",deity:"Божество",legend:"Священный или легендарный образ"};
 const kindLab=o=>KINDL[o.kind]||(o.ext?"Только упомянут":"Герой главы");
 const fmtY=y=>y<0?String(-y).replace(/\B(?=(\d{3})+(?!\d))/g,"\u00a0")+" до н. э.":(y>0&&y<1000?y+" н. э.":String(y));
 function title(id){const e=ENT[id];if(!e)return id;return e.o.name||e.o.title||e.o.t;}
@@ -259,7 +259,7 @@ render.time=function(){
   <div class="scroll"><table><thead><tr><th>Год</th><th>Что</th><th>Заметка</th></tr></thead><tbody>${D.events.map(e=>`<tr><td>${fmtY(e.y)}${(D.meta.time.marks||[]).includes(e.y)?` <span class="small" style="color:var(--accent)" title="Эта дата отмечена пунктиром на графике">┆</span>`:""}</td><td><span class="dot l-${e.lane}"></span>${esc(e.t)}</td><td>${esc(e.n)}</td></tr>`).join("")}</tbody></table></div>`;
   let fl="all";const draw=()=>{
     const only=$("#tonly").checked;
-    const P=D.people.filter(p=>p.kind!=="place"&&p.kind!=="deity"&&(fl==="all"||p.lane===fl)&&(!only||!p.ext)).sort((a,b)=>a.b-b.b);
+    const P=D.people.filter(p=>p.kind!=="place"&&p.kind!=="deity"&&p.kind!=="legend"&&(fl==="all"||p.lane===fl)&&(!only||!p.ext)).sort((a,b)=>a.b-b.b);
     const X0=160,X1=980,Y0=D.meta.time.y0,Y1=D.meta.time.y1,rh=24,top=54,H=top+P.length*rh+16;
     const x=y=>X0+(Math.min(Math.max(y,Y0),Y1)-Y0)/(Y1-Y0)*(X1-X0);
     let s=`<svg viewBox="0 0 1000 ${H}" width="100%" style="min-width:820px" role="img" aria-label="Годы жизни героев главы">`;
